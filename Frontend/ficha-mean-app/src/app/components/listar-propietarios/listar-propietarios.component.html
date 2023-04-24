@@ -1,0 +1,123 @@
+<div class="container-mt-5">
+    <div class="row">
+        <div class="col-lg-8-offset-lg-2">
+            <div class="card">
+
+                <div class="card-body ">
+                   
+                    <div class="card-title">
+                        <span class="titulo">Listado de Propietarios</span>       
+                    </div>
+
+                    <div class="row col-12 text-center">
+                     <span>
+                      <button class="btn btn-outline-primary mr-2" [routerLink]="['/']" >Volver</button>
+                      <button class="btn btn-outline-primary mr-2" (click)="openModal(editProfileModal)"  >Nuevo</button>
+                     </span> 
+                       
+                    </div>           
+                    
+                    <div class="form-group mt-2">
+                      <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="filterTerm">
+                    </div>
+                   
+          
+                    <div class="table-responsive mt-2">
+                      <table class="table table-hover">
+                        <thead class="table-dark">
+                          <tr>
+                            <th scope="col">Propietario</th>
+                            <!-- <th scope="col">Dirección</th> -->
+                            <th scope="col">Telefono</th>
+                            <!-- <th scope="col">Email</th> -->
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let propietario of propietarios | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize | filter:filterTerm" >
+                            <th>{{propietario.nombre}}</th>
+                            <!-- <td>{{propietario.direccion}}</td> -->
+                            <td>{{propietario.telefono}}</td>
+                            <!-- <td>@{{propietario.email}}</td> -->
+                            <!-- <td>
+                              <a><i (click)="eliminarPropietario(propietario)"  class="fas fa-trash text-danger"></i></a>
+                              &nbsp;
+                              <a><i (click)="openModalEdit(editProfileModal, propietario)" class="fas fa-edit text-primary"></i></a>      
+                            </td> -->
+                            <td class="overflow-hidden">
+                              <div ngbDropdown container="body">
+                                <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Acciones</button>
+                                <div ngbDropdownMenu>
+                                  <button  (click)="openModalEdit(editProfileModal, propietario)" ngbDropdownItem>Editar</button>
+                                  <div class="dropdown-divider"></div>
+                                  <button (click)="eliminarPropietario(propietario)" ngbDropdownItem>Borrar</button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+
+                      
+                      <div class="d-flex justify-content-center">
+                        <ngb-pagination [collectionSize]="propietarios.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>  
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #editProfileModal let-modal>
+  <div class="modal-header"
+  >
+   <h5 class="modal-title" id="editProfileLabel">{{ titulo }}</h5>
+   <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+   
+  </div>
+  
+  <div class="modal-body">
+   <form [formGroup]="propietarioForm" (ngSubmit)="guardarPropietario()">
+    <div class="form-group row">
+
+     <input type="hidden" class="form-control" formControlName="id">
+   
+     <label for="firstname" class="col-sm-4 col-form-label  mt-2">Nombre:</label>
+     <div class="col-sm-8">
+      <input type="text" class="form-control" formControlName="propietario">
+     </div>
+    </div>
+    <div class="form-group row">
+     <label for="lastname" class="col-sm-4 col-form-label  mt-2">Dirección:</label>
+     <div class="col-sm-8">
+      <input type="text" class="form-control" formControlName="direccion">
+     </div>
+    </div>
+    <div class="form-group row">
+     <label for="username" class="col-sm-4 col-form-label mt-2">Telefono:</label>
+     <div class="col-sm-8">
+      <input type="text" class="form-control" formControlName="telefono" id="username">
+     </div>
+    </div>
+    <div class="form-group row">
+     <label for="email" class="col-sm-4 col-form-label mb-2">Email:</label>
+     <div class="col-sm-8">
+      <input type="email" class="form-control" formControlName="email" id="email">
+     </div>
+    </div>
+    <div class="modal-footer">
+     <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+     <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+   </form>
+  </div>
+ </ng-template>
+ 
+
+

@@ -1,0 +1,8 @@
+.close {
+    font-size: 20px;
+    line-height: 50px;
+    border: none;
+    outline:none;
+    opacity: 0.2;
+    /* filter:alpha(opacity=40); For IE8 and earlier */
+  }

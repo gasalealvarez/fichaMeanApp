@@ -1,0 +1,160 @@
+
+  <div class="jumbotron "> 
+    <div class="container  ">
+      <div >
+        <h1 class="font-weight-light text-center text-lg-left ">Reseña</h1>
+        <hr>
+      </div> 
+
+      <div class="row h-100 py-3 align-items-center justify-content-center">
+          <div class="col-lg-6 mb-4 flex align-items-center">
+            <div class="card mt-1">
+                <img class="card-img-top" src="" alt="">
+
+                <div class="card-header">
+                  <h5 class="card-title">Propietarios</h5>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="filterTerm">
+                    </div>
+                   
+                    <select  class="form-select mt-1" id="formSelectOwner"  [(ngModel)]="selectedPropietario"
+                      (ngModelChange)="onSelect()"  size="8" aria-label="size 8 select example">
+                      <option [ngValue]="propietario" *ngFor="let propietario of propietarios | filter:filterTerm ">{{propietario.nombre}}</option>
+                    </select>
+            
+                    <div class="text-center mt-3 mb-2" role="toolbar" aria-label="Toolbar with button groups">
+                      <div class="btn-group" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-dark " [routerLink]="['listar-propietarios']">Propietarios</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card mt-1">
+                <img class="card-img-top" src="" alt="">
+
+                <div class="card-header">
+                  <h5 class="card-title">Pacientes</h5>
+                </div>
+
+                <div class="card-body">
+                    <br>
+                    <select  class="form-select mt-3" id="formSelectPatient" [(ngModel)]="selectedPaciente"  size="8" aria-label="size 8 select example"
+                        [ngModelOptions]="{standalone: true}"   (change)="onSelectPaciente()">
+                        <option [ngValue]="paciente" *ngFor="let paciente of pacientes">
+                            {{paciente.nombre}}
+                        </option>
+                    </select>
+              </div>
+                
+                  <div class="text-center mt-3 mb-2" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" aria-label="primary group">
+                        <button [disabled]="selectedPropietario._id == null" class="btn btn-dark dropdown-toggle" type="button" 
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Paciente
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                          <a  *ngIf="selectedPropietario._id != null"  class="dropdown-item" (click)="open(content)">Nuevo Paciente</a>
+                          <a  *ngIf="selectedPaciente._id != null" class="dropdown-item" (click)="openEdit(content, selectedPaciente)">Editar Paciente</a>
+                          <li><hr class="dropdown-divider"></li>
+                          <a  *ngIf="selectedPropietario._id != null" class="dropdown-item" (click)="onEliminar(selectedPaciente)">Eliminar Paciente</a>
+                          <li><hr class="dropdown-divider"></li>
+                          <!-- <a  *ngIf="selectedPaciente._id != null" class="dropdown-item" [routerLink]="['listar-sanidad']">Historia Sanitaria</a> -->
+                          <a  *ngIf="selectedPaciente._id != null" class="dropdown-item" [routerLink]="['listar-historial']">Historial</a>
+                        </div>
+                    </div>        
+            </div>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+  <!-- </form> -->
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ titulo }}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+        <div class="modal-body">
+            <form class="row g-3" [formGroup]="pacienteForm"  (ngSubmit)="onGrabarPaciente()">
+              <input type="hidden" formControlName="id" name="id">
+              
+              <div class="col-12">
+                <label for="recipient-name" class="col-form-label">Paciente:</label>
+                <input  formControlName="paciente" type="text" name="paciente" class="form-control" >
+              </div>
+              
+              <div class="col-md-6">
+                <label  class="col-form-label">Especie</label>
+                <select formControlName="especie" name="especie" class="form-select" (change)="onRazas()">
+
+                  <option *ngFor="let especie of especies" [ngValue]="especie.id">{{especie.especie}}</option> 
+                </select>  
+              </div>
+
+              <div class="col-md-6">
+                <label class="col-form-label">Sexo</label>
+                <select formControlName="idSexo" name="idSexo" class="form-select">
+                  <option value="1">Macho</option> 
+                  <option value="2">Hembra</option> 
+                </select>  
+              </div>    
+
+              <div class="col-md-6">
+                <label  class="col-form-label">Raza:</label>
+                <select  formControlName="raza" name="raza" class="form-select" >
+                <option selected>[Seleccione Raza]</option>
+                <option   *ngFor="let raza of razas_especie" [ngValue]="raza.raza">{{ raza.raza }}</option>  
+                </select>  
+              </div>
+
+              <div class="col-md-6">
+                  <label for="recipient-name" class="col-form-label">Pelaje:</label>
+                  <input  formControlName="pelaje" type="text"  name="pelaje" class="form-control" >
+              </div> 
+              
+
+              <div class="col-md-6">
+                <label  class="col-form-label">Edad:</label>
+                <div class="input-group">
+                  <input formControlName="edad" type="text" class="form-control" >
+                  <div class="input-group-append">
+                    <select  *ngIf="isShown"  (change)= "calularFecha()" formControlName="unidad_edad" class="form-select" aria-label="Default select example" >
+                      <option selected value="1" >En dias</option> 
+                      <option value="2">En meses</option> 
+                      <option value="3">En años</option> 
+                    </select>  
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mt-4">
+                <label class="form-label">Fecha de Nacim.</label>
+                <div class="input-group">
+                  
+                  <input class="form-control" placeholder="dd/mm/yyyy"
+                         name="d2"  ngbDatepicker #d2="ngbDatepicker" 
+                         formControlName="fechaNacimiento"  (dateSelect)="onDateSelected()">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+               </div>
+      
+        </form>        
+    </div>
+  </ng-template>

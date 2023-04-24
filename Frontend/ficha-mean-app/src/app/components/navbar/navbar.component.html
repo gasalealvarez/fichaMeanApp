@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Ficha Clinica  &nbsp; &nbsp;  {{ paciente.nombre }}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav end">
+                <!-- <li class="nav-item active" >
+                    <a *ngIf="paciente.id != null" class="nav-link" href="/listar-propietarios" >Propietarios</a>
+                </li> -->
+                <li class="nav-item active" >
+                    <a  class="nav-link" [routerLink]="['agregar-items']">Agregar Items
+                    </a>
+                </li>
+                <li class="nav-item active" >
+                    <a  class="nav-link" [routerLink]="['archivos']">Archivos
+                    </a>
+                </li>
+                <li *ngIf="paciente._id != null" class="nav-item active" >
+                    <a  class="nav-link"  [routerLink]="['listar-historial']">Historial</a>
+                </li>
+                <li class="nav-item active" >
+                    <a *ngIf="paciente._id != null" class="nav-link" [routerLink]="['listar-sanidad']">Plan Sanitario</a>
+                </li>
+              
+            </ul>
+        </div>
+    </div>
+  </nav>

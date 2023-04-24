@@ -1,0 +1,102 @@
+<div class="container mt-2">
+  <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+          <div class="card">
+            
+            <div class="card-header">
+              <strong>Caso Clinico Nº </strong>
+             </div>
+
+              <div class="card-body">
+                 <span class="titulo"></span> 
+   
+                    <form class="row g-3"  >
+                      <div class="col-12">
+                        <div class="form-group mt-2">
+                          <label for="exampleFormControlTextarea1">Sintomas:</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <div class="form-group mt-2">
+                          <label for="exampleFormControlTextarea1">Diagnostico:</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                         <div class="form-group mt-2">
+                         <label for="exampleFormControlTextarea1">Tratamiento:</label>
+                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                         </div>
+                      </div>
+                      
+                      <!-- <div class="col-12 text-center">
+                        <button type="button" class="btn btn-info ">Habilitar Camara</button>
+                      </div>
+
+                      <div class="col-12">
+                          <app-camara (pictureTaken)="handleImage($event)"></app-camara>
+
+                          <div class="snapshot" *ngIf="webcamImage">
+                            <img [src]="webcamImage.imageAsDataUrl" />
+                          </div>
+                      </div> -->
+
+                      <hr>
+
+                      <div class="col-12">
+                        <label for="fname">Archivos Adjuntos</label>
+      
+                        <div class="col-12">
+                          <label class="btn btn-default p-0">
+                            <input type="file" multiple  (change)="maneja_Imagen($event)" />
+                          </label>
+                        </div>
+                            
+                          
+                        <div  *ngIf="selectedFiles[0] != null " class="table-responsive mt-3">
+                          <table class="table ">
+                            <thead>
+                              <tr>
+                                <th>Nombre</th>
+                                <th>Tamaño</th>
+                                <th>Progreso</th>
+                                <th>URL</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let file of selectedFiles">
+                                <td>{{ file.name  }}</td>
+                                <td>{{ file.file.size / 1024 / 1024 |  number: "0.2-2"  }}MB </td>
+                                <td *ngIf="file.uploadPercent  | async as uploadPercent">
+                                      
+    
+                                <div class="progress"  >
+                                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                </td>
+                                <td  *ngIf="file.downloadURL |async as downloadURL">
+                                <a [href]="downloadURL">{{downloadURL}}</a>
+                                </td>
+                                </tr>
+                                </tbody>
+                            </table>     
+                        </div>
+                      </div> 
+                   
+                      <hr>
+
+                      <div class="col-12">
+                         <button routerLink="/listar-historial" class="btn btn-secondary  float-start">Volver</button>  
+                         <button type="submit"  class="btn btn-primary  float-end">Aceptar</button>  
+                      </div>
+                </form>   
+              </div>
+          </div>
+        </div>           
+    </div>
+              
+
+ 

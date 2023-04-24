@@ -1,0 +1,162 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card">
+                <div class="card-title">
+                    <span class="titulo">Agregar Items</span>  
+                </div>
+
+                <div class="card-body">
+                  <label>Grupos:</label>
+                  <form  class="row g-3" [formGroup]="itemForm"  (ngSubmit)="onPreCambioItem()">
+
+
+            <!-- input oculto para obtener el objeto a editar -->
+                    <div class="col-md-12">
+                      <input formControlName="objecto_editar" type="hidden">
+                    </div>
+
+                    <div class="col-6">
+                        <select  formControlName="claseItem" class="form-select" aria-label="Default select example" (click)="itemSeleccionado()">
+                            <option  *ngFor="let item of items" [ngValue]="item.item" >{{item.item}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-1">
+                      <div>
+                        <button (click)="boton_nuevo()" type="button" class="btn btn-primary">Nuevo</button>
+                      </div>
+                    </div>
+
+                    <hr style="color: black; background-color: black; width:100%;" />
+
+                    <div class="col-6" *ngIf="raza_b">
+                      <label>Especie:</label>
+                      <select  formControlName="especie" class="form-select" aria-label="Default select example" >
+                        <option  *ngFor="let especie of especies" [ngValue]="especie.id" >{{especie.especie}}</option>
+                    </select>
+                    </div>
+
+                    <div class="col-12 mb-2">
+                        <label>Nombre del item:</label>
+                        <div class="input-group">
+                            <input formControlName="texto" type="text" class="form-control" placeholder="Item...">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-primary" >{{boton_estado}}</button>
+                            </div>
+                          </div>
+                    </div>
+
+                    <hr style="color: black; background-color: black; width:100%;" />
+
+                    <div class="table-responsive mt-2" *ngIf="etiqueta_b">
+                      <table class="table table-hover">
+                          <thead class="table-dark">
+                            <tr>
+                              <th scope="col">Etiquetas</th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let etiqueta of etiquetas" >
+                              <td>{{etiqueta.etiqueta}}</td>
+                              <td>
+                                <a (click)="eliminarItem(etiqueta)"><i  class="fas fa-trash text-danger" ></i></a>
+                              </td>
+                              <td>
+                                <a (click)="editarItem(etiqueta)"><i class="fas fa-edit text-primary" ></i></a>      
+                              </td>
+                            </tr>
+                          
+                          </tbody>
+                        </table>
+                      </div>
+
+                    <div class="table-responsive mt-2" *ngIf="raza_b">
+                      <table class="table table-hover">
+                          <thead class="table-dark">
+                            <tr>
+                              <th scope="col">Razas</th>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let raza of razas" >
+                              <td>{{raza.raza}}</td>
+                              <td>
+                                <a (click)="eliminarItem(raza)"><i  class="fas fa-trash text-danger" ></i></a>
+                              </td>
+                              <td>
+                                <a (click)="editarItem(raza)"><i class="fas fa-edit text-primary" ></i></a>      
+                              </td>
+                            </tr>
+                          
+                          </tbody>
+                        </table>
+                      </div>     
+
+                    <div class="table-responsive mt-2" *ngIf="vacuna_b" >
+                      <table class="table table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">Vacuna</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let vacuna of vacunas" >
+                          <td >{{vacuna.vacuna}}</td>
+                          <td>
+                            <a (click)="eliminarItem(vacuna)"><i class="fas fa-trash text-danger" ></i></a>
+                          </td>
+                          <td>
+                            <a  (click)="editarItem(vacuna)"><i class="fas fa-edit text-primary"  ></i></a>      
+                          </td>
+                        </tr>
+                      
+                      </tbody>
+                    </table>        
+                </div>
+
+
+            <div class="table-responsive mt-2" *ngIf="antiparasitario_b">
+              <table class="table table-hover">
+                  <thead class="table-dark">
+                    <tr>
+                      <th scope="col">Antiparasitario</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let antiparasitario of antiparasitarios" >
+                      <td>{{antiparasitario.antiparasitario}}</td>
+                      <td>
+                        <a (click)="eliminarItem(antiparasitario)"><i  class="fas fa-trash text-danger" ></i></a>
+                      </td>
+                      <td>
+                        <a (click)="editarItem(antiparasitario)"><i class="fas fa-edit text-primary" ></i></a>      
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>  
+                <div class="col md-12">
+                  <button (click)="retornarAnterior()" class="btn btn-secondary  float-end">Volver</button>  
+                </div>              
+            </form>         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+                            
+
