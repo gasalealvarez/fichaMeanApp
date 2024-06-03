@@ -104,7 +104,7 @@ export class ListarSanidadComponent implements OnInit {
 
 
     this.dataSvc.getPaciente$().subscribe(paciente => {
-      this.id = paciente._id
+      this.id = paciente.ID
     })
 
   }

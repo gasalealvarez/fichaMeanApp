@@ -119,7 +119,7 @@ export class NuevaEntradaComponent implements OnInit {
 
        
     const ENTRADA : EntradaI = {
-      idPaciente : this.paciente._id,
+      idPaciente : this.paciente.ID,
       paciente : this.paciente.nombre,
       propietario : this.propietario.nombre, 
       fecha : fecha,

@@ -31,6 +31,7 @@ import { ToastComponent } from './components/widgets/toast/toast.component';
 import { ConfirmDialogComponent } from './components/widgets/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './services/confirm-dialog.service';
 import { ArchivosComponent } from './components/archivos/archivos.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 
 
@@ -59,6 +60,7 @@ import { ArchivosComponent } from './components/archivos/archivos.component';
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
+    NgxFileDropModule,
     NgbModule, 
     WebcamModule,
     HttpClientModule, 

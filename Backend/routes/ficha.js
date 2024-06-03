@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
+const multer = require('multer');
+
 const propietarioController = require('../controllers/PropietarioController');
 const pacienteController = require('../controllers/PacienteControllers');
 const ingresoController = require('../controllers/IngresoControllers');
@@ -60,9 +63,27 @@ router.get('/plan/:id', planController.obtenerPlan);
 router.put('/plan/:id', planController.actualizarPlan);
 router.delete('/plan/:id', planController.eliminarPlan);
 
+
+// Configuración de Multer para manejar la carga de archivos
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/') // Directorio donde se guardarán los archivos subidos
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname) // Nombre original del archivo
+    }
+  });
+  const upload = multer({ storage: storage });
+  
+
+
+
+
 // rutas para Caso
-router.post('/caso', casoController.crearCaso);
+
+router.post('/caso', upload.single('file'), casoController.crearCaso);
 router.get('/caso/:id', casoController.obtenerCaso);
+
 
 
 module.exports = router;

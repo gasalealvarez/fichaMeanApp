@@ -1,3 +1,5 @@
+import { FileItemI } from "./file.interface";
+
 export interface itemI {
     id?: string;
     item?: string;
@@ -9,14 +11,14 @@ export interface etiquetaI {
 }
 
 export interface PropietarioI {
-    _id?: string,
+    ID?: string,
     nombre?: string,
     direccion?: string,
     telefono?: string,
     email?: string,
 }
 export interface PacienteI {
-    _id?: string,
+    ID?: string,
     nombre?: string,
     idPropietario?: string,
     idEspecie?: string,
@@ -59,4 +61,12 @@ export interface SanidadI {
     antiparasitario?: string,
     fechaProxima?: Date,
     comentarios?: string,
+}
+
+export interface casoI {
+    _id?: string,
+    sintomas? : string,
+    diagnostico?: string,
+    tratamiento? : string,
+    archivos: File[]
 }

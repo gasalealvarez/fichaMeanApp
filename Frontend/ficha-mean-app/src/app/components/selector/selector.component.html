@@ -6,7 +6,7 @@
         <hr>
       </div> 
 
-      <div class="row h-100 py-3 align-items-center justify-content-center">
+      <div class="row h-100 py-3 align-items-center justify-content-center margin:5px">
           <div class="col-lg-6 mb-4 flex align-items-center">
             <div class="card mt-1">
                 <img class="card-img-top" src="" alt="">
@@ -53,19 +53,19 @@
                 
                   <div class="text-center mt-3 mb-2" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group" role="group" aria-label="primary group">
-                        <button [disabled]="selectedPropietario._id == null" class="btn btn-dark dropdown-toggle" type="button" 
+                        <button [disabled]="selectedPropietario.ID == null" class="btn btn-dark dropdown-toggle" type="button" 
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Paciente
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
-                          <a  *ngIf="selectedPropietario._id != null"  class="dropdown-item" (click)="open(content)">Nuevo Paciente</a>
-                          <a  *ngIf="selectedPaciente._id != null" class="dropdown-item" (click)="openEdit(content, selectedPaciente)">Editar Paciente</a>
+                          <a  *ngIf="selectedPropietario.ID != null"  class="dropdown-item" (click)="open(content)">Nuevo Paciente</a>
+                          <a  *ngIf="selectedPaciente.ID != null" class="dropdown-item" (click)="openEdit(content, selectedPaciente)">Editar Paciente</a>
                           <li><hr class="dropdown-divider"></li>
-                          <a  *ngIf="selectedPropietario._id != null" class="dropdown-item" (click)="onEliminar(selectedPaciente)">Eliminar Paciente</a>
+                          <a  *ngIf="selectedPropietario.ID != null" class="dropdown-item" (click)="onEliminar(selectedPaciente)">Eliminar Paciente</a>
                           <li><hr class="dropdown-divider"></li>
                           <!-- <a  *ngIf="selectedPaciente._id != null" class="dropdown-item" [routerLink]="['listar-sanidad']">Historia Sanitaria</a> -->
-                          <a  *ngIf="selectedPaciente._id != null" class="dropdown-item" [routerLink]="['listar-historial']">Historial</a>
+                          <a  *ngIf="selectedPaciente.ID != null" class="dropdown-item" [routerLink]="['listar-historial']">Historial</a>
                         </div>
                     </div>        
             </div>

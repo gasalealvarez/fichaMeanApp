@@ -17,11 +17,11 @@
                     <a  class="nav-link" [routerLink]="['archivos']">Archivos
                     </a>
                 </li>
-                <li *ngIf="paciente._id != null" class="nav-item active" >
+                <li *ngIf="paciente.ID != null" class="nav-item active" >
                     <a  class="nav-link"  [routerLink]="['listar-historial']">Historial</a>
                 </li>
                 <li class="nav-item active" >
-                    <a *ngIf="paciente._id != null" class="nav-link" [routerLink]="['listar-sanidad']">Plan Sanitario</a>
+                    <a *ngIf="paciente.ID != null" class="nav-link" [routerLink]="['listar-sanidad']">Plan Sanitario</a>
                 </li>
               
             </ul>

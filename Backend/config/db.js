@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config({path: 'variables.env'});
 
-const URI = 'mongodb+srv://gaston:1234@cluster0.qb9lw.mongodb.net/ficha-crud';
+const URI = 'mongodb://localhost:27017/ficha-crud';
 console.log(process.env.DB_MONGO)
 
 const conectarDB = async () => {

@@ -15,6 +15,6 @@ app.use('/api/fichaapp', require('./routes/ficha'));
 //     resp.send('Hola Mundo')
 // })
 
-app.listen(4000, () => {
+app.listen(4000, '192.168.0.20', () => {
     console.log('El servidor esta corriendo en Port 4000 ')
 })

@@ -72,7 +72,7 @@ export class ListarPropietariosComponent implements OnInit {
     this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar definitivamente '  + propietario.nombre + ' ?')
       .then((confirmed) => {
         if (confirmed) {
-          this.dataSvc.eliminarPropietario(propietario._id).subscribe( data => {
+          this.dataSvc.eliminarPropietario(propietario.ID).subscribe( data => {
             this.obenerPropietarios();
             this.showError();
           })

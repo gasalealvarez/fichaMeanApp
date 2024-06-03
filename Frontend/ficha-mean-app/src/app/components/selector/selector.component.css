@@ -3,6 +3,7 @@
   top: 50%;
   transform: translate(0, -50%);
   padding: 10px;
+ 
   }
 
 .card-header:first-child {
@@ -16,6 +17,10 @@
     border-bottom: 1px solid #c8ced3
   }
   
+.card-title {
+  text-align: center;
+  padding-top: 5px;
+}
 
 .close {
   font-size: 20px;

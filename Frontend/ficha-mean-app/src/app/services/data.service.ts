@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
-import { antiparasitarioI, EntradaI, EspecieI, etiquetaI, itemI, PacienteI, PropietarioI, SanidadI, vacunaI} from '../models/model.interface';
+import { antiparasitarioI, EntradaI, EspecieI, etiquetaI, itemI, PacienteI, PropietarioI, SanidadI, vacunaI, casoI} from '../models/model.interface';
 import { RazaI } from '../models/raza.interface';
 
 @Injectable({
@@ -14,13 +14,14 @@ export class DataService {
   public selectedPaciente$ :  BehaviorSubject<PacienteI>;
   public selectedCaso$ : BehaviorSubject <EntradaI>;
 
-  private urlPropietario =  'http://localhost:4000/api/fichaapp/propietario/';
-  private urlPaciente =  'http://localhost:4000/api/fichaapp/paciente/';
-  private urlEntrada =   'http://localhost:4000/api/fichaapp/ingreso/';
-  private urlAntiparasitario = 'http://localhost:4000/api/fichaapp/antiparasitario/';
-  private urlVacuna = 'http://localhost:4000/api/fichaapp/vacuna/';
-  private urlRaza = 'http://localhost:4000/api/fichaapp/raza/';
-  private urlPlan ='http://localhost:4000/api/fichaapp/plan/';
+  private urlPropietario =  'http://localhost:3000/api/propietario/';
+  private urlPaciente =  'http://localhost:3000/api/paciente/';
+  private urlEntrada =   'http://localhost:3000/api/ingreso/';
+  private urlAntiparasitario = 'http://192.168.0.20:4000/api/fichaapp/antiparasitario/';
+  private urlVacuna = 'http://192.168.0.20:4000/api/fichaapp/vacuna/';
+  private urlRaza = 'http://192.168.0.20:4000/api/fichaapp/raza/';
+  private urlPlan ='http://192.168.0.20:4000/api/fichaapp/plan/';
+  private urlCaso = 'http://192.168.0.20:4000/api/fichaapp/caso/';
 
 
   private etiquetas : etiquetaI[]=[
@@ -186,6 +187,24 @@ export class DataService {
     return this.http.put(this.urlVacuna +id, vacuna);
   }
 
+
+  // Caso
+
+  guardarCaso(archivos: File, sintomas: string){
+
+    let formData = new FormData();
+
+     
+    formData.append('textData', sintomas);
+    formData.append('file', archivos);
+
+    const headers = new HttpHeaders();
+    
+
+    return this.http.post(this.urlCaso, formData, {
+      headers:headers
+    });
+  }
   // Razas 
 
   getRazas():Observable<any> {
@@ -224,6 +243,9 @@ export class DataService {
   eliminarPlan(id: string | undefined ){
     return this.http.delete(this.urlPlan + id);
   }
+
+
+
 
 
   getEspecies(): EspecieI[] {

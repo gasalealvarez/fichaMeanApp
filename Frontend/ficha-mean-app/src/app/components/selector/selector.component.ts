@@ -132,8 +132,13 @@ export class SelectorComponent implements OnInit {
   }
 
   onSelect() {
-    this.dataSvc.getPacientes(this.selectedPropietario._id).subscribe( data => {
-      this.pacientes = data;
+    // aca cambie data por data.data por el tiempo de objecto que recibo en sqlite
+    // en mongo solo recibo data
+    // tambien cambie _id por ID en las interfaces, html y ts.
+
+    this.dataSvc.getPacientes(this.selectedPropietario.ID).subscribe( data => {
+     
+      this.pacientes = data.data;
     }) ;
     this.selectedPaciente={};
     this.dataSvc.seleccionarPaciente(this.selectedPaciente);
@@ -169,7 +174,7 @@ export class SelectorComponent implements OnInit {
 
     const PACIENTE : PacienteI = {
       nombre : this.pacienteForm.get('paciente')?.value,
-      idPropietario : this.selectedPropietario._id,
+      idPropietario : this.selectedPropietario.ID,
       idEspecie : this.pacienteForm.get('especie')?.value,
       idSexo : this.pacienteForm.get('idSexo')?.value,
       raza : this.pacienteForm.get('raza')?.value,
@@ -190,7 +195,7 @@ export class SelectorComponent implements OnInit {
       })
     }
 
-    this.dataSvc.getPacientes(this.selectedPropietario._id).subscribe( data => {
+    this.dataSvc.getPacientes(this.selectedPropietario.ID).subscribe( data => {
       this.pacientes = data;
     }) ;
 
@@ -201,7 +206,7 @@ export class SelectorComponent implements OnInit {
     this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar definitivamente '  + paciente.nombre + ' ?')
       .then((confirmed) => {
         if (confirmed) {
-          this.dataSvc.eliminarPaciente(paciente._id).subscribe( data => {
+          this.dataSvc.eliminarPaciente(paciente.ID).subscribe( data => {
             this.onSelect();
             this.showError();
           })

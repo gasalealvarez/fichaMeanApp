@@ -27,7 +27,7 @@ export class EntradaComponent implements OnInit {
       this.paciente = e;
     })
 
-    this.dataSvc.getEntradasPorPaciente(this.paciente._id).subscribe( data => {
+    this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe( data => {
       this.ingresos = data;
     });
    

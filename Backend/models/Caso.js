@@ -16,7 +16,17 @@ const CasoSchema = mongoose.Schema({
     },
     tratamiento: {
         type: String
-    }
+    },
+    files: [{
+        filename: String,
+        path: String,
+        size: Number,
+        createdAt: { type: Date, default: Date.now }
+      }]
 })
 
 module.exports = mongoose.model('Caso', CasoSchema);
+
+const fileSchema = new mongoose.Schema({
+    
+  });

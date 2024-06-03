@@ -10,25 +10,25 @@
               <div class="card-body">
                  <span class="titulo"></span> 
    
-                    <form class="row g-3"  >
+                <form  class="row g-3" (ngSubmit)= "guardar()"  >
                       <div class="col-12">
                         <div class="form-group mt-2">
                           <label for="exampleFormControlTextarea1">Sintomas:</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          <textarea class="form-control"  [(ngModel)]="sintomas" id="sintomas" [ngModelOptions]="{standalone: true}" rows="3"></textarea>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group mt-2">
                           <label for="exampleFormControlTextarea1">Diagnostico:</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                          <textarea class="form-control"  id="diagnostico" rows="3"></textarea>
                         </div>
                       </div>
 
                       <div class="col-12">
                          <div class="form-group mt-2">
                          <label for="exampleFormControlTextarea1">Tratamiento:</label>
-                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                         <textarea class="form-control"  id="tramamiento" rows="3"></textarea>
                          </div>
                       </div>
                       
@@ -47,7 +47,17 @@
                       <hr>
 
                       <div class="col-12">
-                        <label for="fname">Archivos Adjuntos</label>
+                        <div class="form-group">
+                          
+                            <label for="archivo" class="form-label">Seleccionar Archivo</label>
+                            <input type="file" class="form-control" id="archivo" name="archivo" accept=".pdf, .doc, .docx"  (change)="onFileDropped($event)">
+                            <!-- El atributo accept especifica los tipos de archivo permitidos -->
+                          </div>
+                          <!-- <label for="avatar">Avatar:</label>
+                          <ngx-file-drop (onFileDrop)="onFileDropped($event)">
+                            Arrastra y suelta el avatar aquí o haz clic para seleccionarlo.
+                          </ngx-file-drop>
+                        </div>
       
                         <div class="col-12">
                           <label class="btn btn-default p-0">
@@ -56,7 +66,7 @@
                         </div>
                             
                           
-                        <div  *ngIf="selectedFiles[0] != null " class="table-responsive mt-3">
+                         <div  *ngIf="selectedFiles[0] != null " class="table-responsive mt-3">
                           <table class="table ">
                             <thead>
                               <tr>
@@ -83,8 +93,8 @@
                                 </tr>
                                 </tbody>
                             </table>     
-                        </div>
-                      </div> 
+                        </div> -->
+                      </div>  
                    
                       <hr>
 
