@@ -8,6 +8,7 @@ import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, Ngb
 import * as moment from 'moment';
 import { ToastService } from 'src/app/services/toast.service';
 import { ConfirmDialogService } from 'src/app/services/confirm-dialog.service';
+import { UrlSerializer } from '@angular/router';
 
 
 /**
@@ -158,7 +159,7 @@ export class SelectorComponent implements OnInit {
     }
 
     this.dataSvc.getRazasById(idEspecie).subscribe(raz => {
-      this.razas_especie = raz;
+      this.razas_especie = raz.data;
     })
   
   }
@@ -171,7 +172,8 @@ export class SelectorComponent implements OnInit {
 
     var fecha = new Date(this.model1?.month + '/'+ this.model1?.day + '/' + this.model1?.year);
 
-
+    // guarda la fecha en formato timeStamp
+    
     const PACIENTE : PacienteI = {
       nombre : this.pacienteForm.get('paciente')?.value,
       idPropietario : this.selectedPropietario.ID,
@@ -179,11 +181,12 @@ export class SelectorComponent implements OnInit {
       idSexo : this.pacienteForm.get('idSexo')?.value,
       raza : this.pacienteForm.get('raza')?.value,
       pelaje : this.pacienteForm.get('pelaje')?.value,
-      fechaNacimiento : fecha
+      fechaNacimiento : fecha.getTime()
     }
 
-  
-    if (this.pacienteForm.get('id')?.value != '') {
+    
+    
+     if (this.pacienteForm.get('id')?.value != '') {
       this.dataSvc.editarPaciente(this.pacienteForm.get('id')?.value, PACIENTE).subscribe(data => {
         this.showSuccess();
         this.onSelect();
@@ -196,9 +199,9 @@ export class SelectorComponent implements OnInit {
     }
 
     this.dataSvc.getPacientes(this.selectedPropietario.ID).subscribe( data => {
-      this.pacientes = data;
+      this.pacientes = data.data;
     }) ;
-
+ 
     this.pacienteForm.reset();
   }
 
@@ -281,10 +284,10 @@ export class SelectorComponent implements OnInit {
 
     // cambia el number de especie a string para poder cargar el modal
 
-    var a_especie: number = user.especie
+    var a_especie: number = user.idEspecie
     var str_especie: string = a_especie + '';
 
-    this.onRazas(user.especie);
+    this.onRazas(user.idEspecie);
 
     this.titulo= 'Editar Paciente';
     moment.locale('es');
@@ -293,10 +296,12 @@ export class SelectorComponent implements OnInit {
 
     var fecha;
     fecha = moment(user.fechaNacimiento).format('DD/MM/YYYY')
-
+    
     const year =  fecha.substr(6,4);
     const month = fecha.substr(3,2);
     const day =  fecha.substr(0,2);
+
+   
 
     var ngbDateStruct = { day: parseInt(day), month: parseInt(month), year: parseInt(year)};
 

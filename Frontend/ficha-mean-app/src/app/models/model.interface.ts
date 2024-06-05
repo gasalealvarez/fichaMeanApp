@@ -25,7 +25,7 @@ export interface PacienteI {
     raza?: string,
     idSexo?: string;
     pelaje?: string,
-    fechaNacimiento?: Date,
+    fechaNacimiento?: Number,
 }
 
 export interface EspecieI {

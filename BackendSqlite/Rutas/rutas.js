@@ -23,4 +23,24 @@ router.post('/ingreso', ingresoControlador.crearIngreso);
 router.put('/ingreso/:id', ingresoControlador.actualizarIngreso);
 router.delete('/ingresos/:id', ingresoControlador.eliminarIngreso);
 
+const razaControlador =  require('../Controladores/razaControlador');
+router.get('/raza', razaControlador.obtenerRazas);
+router.get('/raza/:id', razaControlador.obtenerRazasEspecie);
+router.post('/raza', razaControlador.crearRaza);
+router.put('/raza', razaControlador.actualizarRaza);
+router.delete('/raza/:id', razaControlador.eliminarRaza);
+
+const antiparasitarioControlador = require('../Controladores/antiparasitarioControlador');
+router.get('/antiparasitario', antiparasitarioControlador.obtenerAntiparasitarios);
+router.post('/antiparasitario', antiparasitarioControlador.crearAntiparasitario);
+router.put('/antiparasitario/:id', antiparasitarioControlador.editarAntiparasitario);
+router.delete('/antiparasitario/:id', antiparasitarioControlador.eliminarAntiparasitario);
+
+const vacunaControlador = require('../Controladores/vacunaControlador');
+router.get('/vacuna', vacunaControlador.obtenerVacunas);
+router.post('/vacuna', vacunaControlador.crearVacuna);
+router.put('/vacuna/:id', vacunaControlador.editarVacuna);
+router.delete('/vacuna/:id', vacunaControlador.eliminarVacuna);
+
+
 module.exports = router;

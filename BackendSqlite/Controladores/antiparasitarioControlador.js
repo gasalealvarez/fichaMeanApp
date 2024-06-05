@@ -1,12 +1,11 @@
 const db = require('../Conexion/conexion');
 
-
-exports.crearRaza = async(req, res) => {
+exports.crearAntiparasitario = async (req, res) => {
     try {
-        const { idEspecie, raza } = req.body;
+        const { antiparasitario } = req.body;
 
-        sql = "INSERT INTO  razas (idEspecie, raza) VALUES (?,?)"
-        db.run(sql, [idEspecie, raza], (err) => {
+        sql = "INSERT INTO  antiparasitarios(antiparasitarios) VALUES (?)"
+        db.run(sql, [antiparasitario], (err) => {
             if (err) return res.json();
         })
 
@@ -22,8 +21,8 @@ exports.crearRaza = async(req, res) => {
     }
 }
 
-exports.obtenerRazas = async (req, res) => {
-    sql = "SELECT * FROM razas";
+exports.obtenerAntiparasitarios = async (req, res) => {
+    sql = "SELECT * FROM antiparasitarios";
 
     try {
         //const queryObject = url.parse(req.url, true).query;
@@ -45,26 +44,13 @@ exports.obtenerRazas = async (req, res) => {
     }
 }
 
-exports.obtenerRazasEspecie = async (req, res) => {
-    sql = "SELECT * FROM razas WHERE idEspecie = ?";
-
-    db.all(sql, [req.params.id], (err, rows) => {
-        if (err) return res.json({ status: 300, success: false, error: err });
-
-        if (rows.length < 1)
-            return res.json({ status: 300, success: false, error: "Row macth" });
-
-        return res.json({ status: 200, data: rows, success: true });
-    })
-}
-
-exports.actualizarRaza = async (req, res) => {
+exports.editarAntiparasitario = async (req, res)=> {
     const id = req.params.id;
-    const { idEspecie, raza } = req.body;
+    const { antiparasitario } = req.body;
 
 
-    const query = `UPDATE razas SET idEspecie = ?,  raza = ? WHERE id = ?`;
-    db.run(query, [idEspecie, raza, id], function (err) {
+    const query = `UPDATE antiparasitarios SET antiparasitario = ? WHERE id = ?`;
+    db.run(query, [antiparasitario, id], function (err) {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
@@ -73,10 +59,10 @@ exports.actualizarRaza = async (req, res) => {
     });
 }
 
-exports.eliminarRaza = async (req, res) => {
+exports.eliminarAntiparasitario = async (req, res)=> {
     const id = req.params.id;
 
-    const query = `DELETE FROM razas WHERE id = ?`;
+    const query = `DELETE FROM antiparasitarios WHERE id = ?`;
     db.run(query, id, function (err) {
         if (err) {
             res.status(500).json({ error: err.message });

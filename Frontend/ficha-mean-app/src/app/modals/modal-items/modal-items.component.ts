@@ -178,10 +178,10 @@ export class ModalItemsComponent implements OnInit {
             })
         } else if (this.raza_b) {
           const RAZA : RazaI = {
-                                _id: this.raza._id,
+                                ID: this.raza.ID,
                                 raza : this.itemForm.get('texto')?.value
                                }
-          this.dataSvc.actualizarRaza(RAZA._id, RAZA).subscribe(raza => {
+          this.dataSvc.actualizarRaza(RAZA.ID, RAZA).subscribe(raza => {
             this.dataSvc.getRazas().subscribe(razas => {
               this.razas = razas
             })
@@ -228,7 +228,7 @@ export class ModalItemsComponent implements OnInit {
       this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar definitivamente '  + this.raza.raza + ' ?')
       .then((confirmed) => {
         if (confirmed) {
-          this.dataSvc.eliminarRaza(this.raza._id).subscribe(data => {
+          this.dataSvc.eliminarRaza(this.raza.ID).subscribe(data => {
             this.dataSvc.getRazas().subscribe(razas => {
               this.razas = razas
             })
@@ -271,7 +271,7 @@ export class ModalItemsComponent implements OnInit {
         var toConcat =  toString + "";
  
          this.itemForm.setValue({
-          objecto_editar: this.raza._id,
+          objecto_editar: this.raza.ID,
           claseItem : 'Razas',
           especie :toConcat,
           item : '',

@@ -17,11 +17,11 @@ export class DataService {
   private urlPropietario =  'http://localhost:3000/api/propietario/';
   private urlPaciente =  'http://localhost:3000/api/paciente/';
   private urlEntrada =   'http://localhost:3000/api/ingreso/';
-  private urlAntiparasitario = 'http://192.168.0.20:4000/api/fichaapp/antiparasitario/';
-  private urlVacuna = 'http://192.168.0.20:4000/api/fichaapp/vacuna/';
-  private urlRaza = 'http://192.168.0.20:4000/api/fichaapp/raza/';
-  private urlPlan ='http://192.168.0.20:4000/api/fichaapp/plan/';
-  private urlCaso = 'http://192.168.0.20:4000/api/fichaapp/caso/';
+  private urlAntiparasitario = 'http://localhost:3000/api/antiparasitario/';
+  private urlVacuna = 'http://localhost:3000/api/vacuna/';
+  private urlRaza = 'http://localhost:3000/api/raza/';
+  private urlPlan ='http://localhost:3000/api/plan/';
+  private urlCaso = 'http://localhost:3000/api/caso/';
 
 
   private etiquetas : etiquetaI[]=[
@@ -219,11 +219,11 @@ export class DataService {
     return this.http.get(this.urlRaza + id);
   }
 
-  eliminarRaza(id: string | undefined):Observable<any>{
+  eliminarRaza(id: number | undefined):Observable<any>{
     return this.http.delete(this.urlRaza + id);
   }
 
-  actualizarRaza(id: string | undefined, raza: RazaI): Observable<any>{
+  actualizarRaza(id: number | undefined, raza: RazaI): Observable<any>{
     return this.http.put(this.urlRaza + id, raza);
   }
 
@@ -243,9 +243,6 @@ export class DataService {
   eliminarPlan(id: string | undefined ){
     return this.http.delete(this.urlPlan + id);
   }
-
-
-
 
 
   getEspecies(): EspecieI[] {

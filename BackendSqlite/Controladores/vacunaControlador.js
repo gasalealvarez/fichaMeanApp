@@ -1,12 +1,11 @@
 const db = require('../Conexion/conexion');
 
-
-exports.crearRaza = async(req, res) => {
+exports.crearVacuna = async (req, res)=> {
     try {
-        const { idEspecie, raza } = req.body;
+        const { vacuna } = req.body;
 
-        sql = "INSERT INTO  razas (idEspecie, raza) VALUES (?,?)"
-        db.run(sql, [idEspecie, raza], (err) => {
+        sql = "INSERT INTO  vacunas(vacuna) VALUES (?)"
+        db.run(sql, [vacuna], (err) => {
             if (err) return res.json();
         })
 
@@ -22,8 +21,8 @@ exports.crearRaza = async(req, res) => {
     }
 }
 
-exports.obtenerRazas = async (req, res) => {
-    sql = "SELECT * FROM razas";
+exports.obtenerVacunas = async (req, res)=> {
+    sql = "SELECT * FROM vacunas";
 
     try {
         //const queryObject = url.parse(req.url, true).query;
@@ -45,26 +44,13 @@ exports.obtenerRazas = async (req, res) => {
     }
 }
 
-exports.obtenerRazasEspecie = async (req, res) => {
-    sql = "SELECT * FROM razas WHERE idEspecie = ?";
-
-    db.all(sql, [req.params.id], (err, rows) => {
-        if (err) return res.json({ status: 300, success: false, error: err });
-
-        if (rows.length < 1)
-            return res.json({ status: 300, success: false, error: "Row macth" });
-
-        return res.json({ status: 200, data: rows, success: true });
-    })
-}
-
-exports.actualizarRaza = async (req, res) => {
+exports.editarVacuna = async (req, res)=> {
     const id = req.params.id;
-    const { idEspecie, raza } = req.body;
+    const { vacuna } = req.body;
 
 
-    const query = `UPDATE razas SET idEspecie = ?,  raza = ? WHERE id = ?`;
-    db.run(query, [idEspecie, raza, id], function (err) {
+    const query = `UPDATE vacunas SET vacuna = ? WHERE id = ?`;
+    db.run(query, [vacuna, id], function (err) {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
@@ -73,10 +59,10 @@ exports.actualizarRaza = async (req, res) => {
     });
 }
 
-exports.eliminarRaza = async (req, res) => {
+exports.eliminarVacuna = async (req, res) => {
     const id = req.params.id;
 
-    const query = `DELETE FROM razas WHERE id = ?`;
+    const query = `DELETE FROM vacunas WHERE id = ?`;
     db.run(query, id, function (err) {
         if (err) {
             res.status(500).json({ error: err.message });

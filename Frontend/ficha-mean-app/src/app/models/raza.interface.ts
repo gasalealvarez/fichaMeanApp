@@ -1,5 +1,5 @@
 export interface RazaI {
-    _id?: string;
-    idEspecie?: string, 
+    ID?: number;
+    idEspecie?: number, 
     raza?: string;
 }

@@ -3,10 +3,10 @@ const db = require('../Conexion/conexion');
 
 exports.crearPropietario = async (req, res) => {
     try {
-        const { nombre, direccion, telefono, email, id } = req.body;
+        const { nombre, direccion, telefono, email } = req.body;
 
         sql = "INSERT INTO  propietarios(nombre, direccion, telefono,  email) VALUES (?,?,?,?)"
-        db.run(sql, [nombre, direccion, telefono, email, id], (err) => {
+        db.run(sql, [nombre, direccion, telefono, email], (err) => {
             if (err) return res.json();
         })
 
