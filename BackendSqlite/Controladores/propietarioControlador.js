@@ -62,8 +62,8 @@ exports.actualizarPropietario = async (req, res) => {
     const id = req.params.id;
     const { nombre, direccion, telefono, email } = req.body;
 
-
-    const query = `UPDATE propietarios SET nombre = ?, direccion = ?, telefono = ?, email = ? WHERE id = ?`;
+    
+    const query = "UPDATE propietarios SET nombre = ?, direccion = ?, telefono = ?, email = ? WHERE id = ?";
     db.run(query, [nombre, direccion, telefono, email, id], function (err) {
         if (err) {
             res.status(500).json({ error: err.message });

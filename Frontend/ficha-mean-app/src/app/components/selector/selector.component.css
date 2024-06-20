@@ -3,18 +3,25 @@
   top: 50%;
   transform: translate(0, -50%);
   padding: 10px;
- 
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
   }
 
+.card {
+  border-radius: 2%;
+}
+
 .card-header:first-child {
-    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0
+    border-radius: 2px;
   }
   
 .card-header {
     padding: .75rem 1.25rem;
     margin-bottom: 0;
-    background-color: #f0f3f5;
-    border-bottom: 1px solid #c8ced3
+    background: linear-gradient(to right, #212529, #6cb2eb);
+    border-bottom: 1px solid #c8ced3;
+    color:white; 
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); 
+    border-radius: 8px;
   }
   
 .card-title {
@@ -47,4 +54,28 @@ button.calendar, button.calendar:active {
   right: 0!important;
   left: auto!important;
   margin: 0.5em;
+}
+.shadow-box {
+  background-color: #f0f0f0;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+.custom-button {
+  background-color: #4285f4; /* Gmail blue */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 4px;
+}
+
+.custom-button:hover {
+  background-color: #357ae8; /* Slightly darker blue */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }

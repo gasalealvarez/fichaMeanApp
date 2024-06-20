@@ -9,6 +9,8 @@ import { RazaI } from 'src/app/models/raza.interface';
 import { ToastService } from 'src/app/services/toast.service';
 import { ThisReceiver } from '@angular/compiler';
 import { ConfirmDialogService } from 'src/app/services/confirm-dialog.service';
+import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -35,7 +37,9 @@ export class ModalItemsComponent implements OnInit {
   public antiparasitario_b: boolean= false;
   public etiqueta_b=false;
 
-  public boton_estado="Agregar"
+  public boton_estado=". . ."
+
+  error: string | null = null;
   
   itemForm : any = new FormControl();
 
@@ -77,7 +81,9 @@ export class ModalItemsComponent implements OnInit {
       this.antiparasitario_b = false;
       this.etiqueta_b = false;
       this.dataSvc.getRazas().subscribe(razas => {
-        this.razas = razas
+        if (razas.status != 300) {
+          this.razas = razas 
+        } 
       })
 
     } 
@@ -87,7 +93,9 @@ export class ModalItemsComponent implements OnInit {
       this.etiqueta_b= false;
       this.raza_b = false;
       this.dataSvc.getVacunas().subscribe(vacunas => {
-        this.vacunas = vacunas;
+        if (vacunas.status != 300) {
+          this.vacunas = vacunas;
+        } 
       })
     } 
     else if (this.itemForm.get('claseItem').value === 'Antiparasitarios') {
@@ -95,8 +103,10 @@ export class ModalItemsComponent implements OnInit {
       this.etiqueta_b =false;
       this.vacuna_b=false;
       this.raza_b = false;
-      this.dataSvc.getAntiparasitarios().subscribe(atp => {
-        this.antiparasitarios = atp
+      this.dataSvc.getAntiparasitarios().subscribe(atp => {      
+        if(atp.status != 300) {  
+          this.antiparasitarios = atp;     
+        }
       }) 
     }
     else if (this.itemForm.get('claseItem').value === 'Etiquetas') {
@@ -105,9 +115,7 @@ export class ModalItemsComponent implements OnInit {
       this.vacuna_b=false;
       this.raza_b = false;
       this.etiquetas = this.dataSvc.getEtiquetas();
-
     }
-
   }
 
   onPreCambioItem() {
@@ -122,7 +130,7 @@ export class ModalItemsComponent implements OnInit {
 
               this.dataSvc.guardarVacuna(VACUNA).subscribe(vacuna => {
                 this.dataSvc.getVacunas().subscribe(vacunas => {
-                  this.vacunas = vacunas;
+                  this.vacuna = vacunas.data;
                 })
                 this.showSuccess();
               });
@@ -132,9 +140,10 @@ export class ModalItemsComponent implements OnInit {
                 antiparasitario:  this.itemForm.get('texto')?.value
               }
 
+              
               this.dataSvc.guardarAntiparasitario(ATP).subscribe(antiparasitario => {
                 this.dataSvc.getAntiparasitarios().subscribe(atp => {
-                  this.antiparasitarios = atp
+                  this.antiparasitarios = atp.data
                 })
                 this.showSuccess();
               })
@@ -146,7 +155,7 @@ export class ModalItemsComponent implements OnInit {
 
               this.dataSvc.guardarRaza(RAZA).subscribe(a => {
                 this.dataSvc.getRazas().subscribe(b=> {
-                  this.razas = b
+                  this.razas = b.data
                 })
               })
               this.showSuccess();
@@ -155,11 +164,11 @@ export class ModalItemsComponent implements OnInit {
       } else if (this.boton_estado === "Editar") {
         if (this.vacuna_b) {
           const VACUNA : vacunaI = { 
-                                      _id: this.vacuna._id,
-                                       vacuna : this.itemForm.get('texto')?.value
+                                      ID: this.vacuna.ID,
+                                      vacuna : this.itemForm.get('texto')?.value
                                    }
          
-          this.dataSvc.actualizarVacuna(VACUNA._id, VACUNA).subscribe(vacuna => {
+          this.dataSvc.actualizarVacuna(VACUNA.ID, VACUNA).subscribe(vacuna => {
             this.dataSvc.getVacunas().subscribe(vacunas => {
               this.vacunas = vacunas;
             })
@@ -167,10 +176,10 @@ export class ModalItemsComponent implements OnInit {
           });
         } else if (this.antiparasitario_b) {
             const ANTIPARASITARIO : antiparasitarioI = {
-                                  _id : this.antiparasitario._id,
+                                  ID : this.antiparasitario.ID,
                                   antiparasitario : this.itemForm.get('texto')?.value
                                   }
-            this.dataSvc.actualizarAntiparasitario(ANTIPARASITARIO._id, ANTIPARASITARIO).subscribe(atp => {
+            this.dataSvc.actualizarAntiparasitario(ANTIPARASITARIO.ID, ANTIPARASITARIO).subscribe(atp => {
               this.dataSvc.getAntiparasitarios().subscribe(atps => {
                 this.antiparasitarios = atps
               })
@@ -189,7 +198,7 @@ export class ModalItemsComponent implements OnInit {
         }
       }
 
-   
+      this.boton_estado=". . ."
     
     // retornarAnterior();
   }
@@ -200,7 +209,7 @@ export class ModalItemsComponent implements OnInit {
       this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar definitivamente '  + this.vacuna.vacuna + ' ?')
       .then((confirmed) => {
         if (confirmed) {
-          this.dataSvc.eliminarVacuna(this.vacuna._id).subscribe(data => {
+          this.dataSvc.eliminarVacuna(this.vacuna.ID).subscribe(data => {
             this.dataSvc.getVacunas().subscribe(vacunas => {
               this.vacunas = vacunas
             })
@@ -214,7 +223,7 @@ export class ModalItemsComponent implements OnInit {
       this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar definitivamente '  + this.antiparasitario.antiparasitario + ' ?')
       .then((confirmed) => {
         if (confirmed) {
-          this.dataSvc.eliminarAntiparasitario(this.antiparasitario._id).subscribe(data => {
+          this.dataSvc.eliminarAntiparasitario(this.antiparasitario.ID).subscribe(data => {
             this.dataSvc.getAntiparasitarios().subscribe(atps => {
               this.antiparasitarios = atps
             })
@@ -250,7 +259,7 @@ export class ModalItemsComponent implements OnInit {
 
     if (this.vacuna_b) {
       this.itemForm.setValue({
-        objecto_editar: this.vacuna._id,
+        objecto_editar: this.vacuna.ID,
         claseItem : 'Vacunas',
         especie :'',
         item : '',
@@ -259,7 +268,7 @@ export class ModalItemsComponent implements OnInit {
     } else if (this.antiparasitario_b)
       {
         this.itemForm.setValue({
-          objecto_editar: this.antiparasitario._id,
+          objecto_editar: this.antiparasitario.ID,
           claseItem : 'Antiparasitarios',
           especie : '',
           item : '',
@@ -288,6 +297,8 @@ export class ModalItemsComponent implements OnInit {
           texto : this.etiqueta.etiqueta
         })
       }
+
+      this.boton_estado=". . .";
   }
 
   asignar_clase(item:any) {

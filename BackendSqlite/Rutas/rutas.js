@@ -42,5 +42,16 @@ router.post('/vacuna', vacunaControlador.crearVacuna);
 router.put('/vacuna/:id', vacunaControlador.editarVacuna);
 router.delete('/vacuna/:id', vacunaControlador.eliminarVacuna);
 
+const planControlador  = require('../Controladores/planControlador');
+router.get('/plan/:id', planControlador.obtenerPlan);
+router.post('/plan', planControlador.crearPlan);
+router.put('/plan/:id', planControlador.editarPlan);
+router.delete('/plan/:id', planControlador.eliminarPlan);
+
+const casoControlador = require('../Controladores/casoControlador');
+router.get('/caso/:id', casoControlador.obtenerCaso);
+router.post('/caso', casoControlador.crearCaso);
+router.put('/caso/:id', casoControlador.actualizarCaso);
+router.delete('/caso/:id', casoControlador.eliminarCaso);
 
 module.exports = router;

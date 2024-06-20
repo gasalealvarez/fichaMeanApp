@@ -24,7 +24,7 @@ const routes: Routes = [
     //   { path: 'nueva-sanidad', component: ModalSanidadComponent}
     // ]},
   { path: 'listar-historial', component: ListarHistorialComponent},
-  { path: 'nuevo-caso', component: ModalCasoComponent},
+  { path: 'nuevo-caso/:id', component: ModalCasoComponent},
   { path:'**', pathMatch:'full', redirectTo:'modal'}
 ];
 

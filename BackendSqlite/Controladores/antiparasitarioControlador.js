@@ -4,7 +4,7 @@ exports.crearAntiparasitario = async (req, res) => {
     try {
         const { antiparasitario } = req.body;
 
-        sql = "INSERT INTO  antiparasitarios(antiparasitarios) VALUES (?)"
+        sql = "INSERT INTO  antiparasitarios(antiparasitario) VALUES (?)"
         db.run(sql, [antiparasitario], (err) => {
             if (err) return res.json();
         })
@@ -32,7 +32,7 @@ exports.obtenerAntiparasitarios = async (req, res) => {
             if (err) return res.json({ status: 300, success: false, error: err });
 
             if (rows.length < 1)
-                return res.json({ status: 300, success: false, error: "Row macth" });
+                return res.json({ msg: 'Antiparasitarios no encontrados' });
 
             return res.json(rows);
         })

@@ -96,7 +96,7 @@ export class NuevaEntradaComponent implements OnInit {
 
   ngOnInit(): void {
     
-      this.dataSvc.getPaciente$().subscribe( paciente => {
+       this.dataSvc.getPaciente$().subscribe( paciente => {
         this.paciente = paciente
       })
 
@@ -106,7 +106,7 @@ export class NuevaEntradaComponent implements OnInit {
 
       this.entradaForm.patchValue({
         fecha: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
-      })
+      }) 
 
   }
 
@@ -119,10 +119,10 @@ export class NuevaEntradaComponent implements OnInit {
 
        
     const ENTRADA : EntradaI = {
-      idPaciente : this.paciente.ID,
+      //idPaciente : this.paciente.ID,
       paciente : this.paciente.nombre,
       propietario : this.propietario.nombre, 
-      fecha : fecha,
+      fecha : fecha.getTime(),
       comentarios : this.entradaForm.get('comentarios')!.value,
       // sanidad : this.sanidad
     }

@@ -18,7 +18,7 @@ export interface PropietarioI {
     email?: string,
 }
 export interface PacienteI {
-    ID?: string,
+    ID?: Number,
     nombre?: string,
     idPropietario?: string,
     idEspecie?: string,
@@ -34,39 +34,42 @@ export interface EspecieI {
 }
 
 export interface EntradaI {
-    _id?: string,
-    fecha?: Date,
+    ID?: string,
+    fecha?: number,
     comentarios?: string,
     propietario?: string,
-    idPaciente?: string,
+    idPaciente?: Number,
     paciente?: string, 
     tipo_ingreso?: string
 }
 
 export interface vacunaI {
-    _id?: string,
+    ID?: string,
     vacuna?: string
 }
 
 export interface antiparasitarioI {
-    _id?: string,
+    ID?: string,
     antiparasitario?: string
 }
 
 export interface SanidadI {
-    _id?: string,
-    fecha?: Date,
-    idPaciente?: string | null,
+    ID?: string,
+    fecha?: number,
+    idPaciente?: Number,
+    idVacuna? : Number,
     vacuna?: string,
+    idAntiparasitario: Number,
     antiparasitario?: string,
-    fechaProxima?: Date,
+    fechaProxima?: number,
+    recordatorio: Number,
     comentarios?: string,
 }
 
 export interface casoI {
-    _id?: string,
+    ID?: Number,
     sintomas? : string,
     diagnostico?: string,
     tratamiento? : string,
-    archivos: File[]
+    //archivos: File[]
 }

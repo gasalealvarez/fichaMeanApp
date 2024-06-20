@@ -2,7 +2,7 @@
 <div class="container-mt-5">
     <div class="row">
         <div class="col-lg-8-offset-lg-2">
-            <div class="card">
+            <div class="card shadow-box">
                 <div class="card-body text-center">
                    
                     <div class="card-title">
@@ -35,7 +35,6 @@
                               <a (click)="eliminarPlan(historia)"><i  class="fas fa-trash text-danger" ></i></a>
                               &nbsp;
                               <a  (click)="openEdit(editProfileModal,historia)"><i class="fas fa-edit text-primary"  ></i></a>      
-                              <!-- <a [routerLink]="['/editar-sanidad', historia.id]"><i class="fas fa-edit text-primary"  ></i></a>       -->
                             </td>
                           </tr>
                          
@@ -68,7 +67,7 @@
   <div class="modal-body">
     <form class= "row g-3 mt-3"  [formGroup]="sanidadForm" (ngSubmit)="onGrabarSanidad()">
 
-      <input type="hidden" class="form-control" formControlName="id">
+      <input type="hidden" class="form-control" formControlName="ID">
                     
       <div class="col-md-6">
         <label>Fecha Aplicacion:   </label>
@@ -91,7 +90,7 @@
         <label >Vacunas:</label>
         <select class="form-select" formControlName="vacuna">
             <option  selected [ngValue]="0">Ninguna...</option>
-            <option *ngFor="let vacuna of vacunas" [ngValue]="vacuna.vacuna">{{vacuna.vacuna}}</option>
+            <option *ngFor="let vacuna of vacunas" [ngValue]="vacuna.ID">{{vacuna.vacuna}}</option>
         </select>
       </div>
 
@@ -99,7 +98,7 @@
         <label >Antiparasitarios:</label>
         <select class="form-select" formControlName="antiparasitario">
           <option  [ngValue]="0">Ninguna...</option>
-          <option *ngFor="let antiparasitario of antiparasitarios" [ngValue]="antiparasitario.antiparasitario">{{antiparasitario.antiparasitario}}</option>
+          <option *ngFor="let antiparasitario of antiparasitarios" [ngValue]="antiparasitario.ID">{{antiparasitario.antiparasitario}}</option>
         </select>
       </div>
 

@@ -32,6 +32,7 @@ import { ConfirmDialogComponent } from './components/widgets/confirm-dialog/conf
 import { ConfirmDialogService } from './services/confirm-dialog.service';
 import { ArchivosComponent } from './components/archivos/archivos.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { FormatDatePipe } from './format-date.pipe';
 
 
 
@@ -51,7 +52,8 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     CamaraComponent,
     ToastComponent,
     ConfirmDialogComponent,
-    ArchivosComponent
+    ArchivosComponent,
+    FormatDatePipe
   ],
   imports: [
     BrowserModule,

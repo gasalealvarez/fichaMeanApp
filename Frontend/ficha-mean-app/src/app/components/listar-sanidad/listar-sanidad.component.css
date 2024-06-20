@@ -36,3 +36,8 @@ button.calendar, button.calendar:active {
     opacity: 0.2;
     /* filter:alpha(opacity=40); For IE8 and earlier */
   }
+
+  .shadow-box {
+    background-color: #f0f0f0;
+    box-shadow: 10px 10px 5px #888888;
+  }

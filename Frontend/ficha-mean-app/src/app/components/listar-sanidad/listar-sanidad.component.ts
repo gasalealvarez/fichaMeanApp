@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { antiparasitarioI, SanidadI, vacunaI } from 'src/app/models/model.interface';
+import { antiparasitarioI, PacienteI, SanidadI, vacunaI } from 'src/app/models/model.interface';
 import { ConfirmDialogService } from 'src/app/services/confirm-dialog.service';
 import { DataService } from 'src/app/services/data.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -79,9 +79,10 @@ export class ListarSanidadComponent implements OnInit {
   model2: NgbDateStruct | undefined;
 
   titulo: string = "Nuevo Registro";
-  id: string | undefined;
+  ID: string | undefined;
 
   public sanidad: SanidadI[] = [];
+  public paciente: PacienteI = {};
 
   constructor(private dataSvc: DataService,
     private router: Router,
@@ -93,37 +94,42 @@ export class ListarSanidadComponent implements OnInit {
     private ngbCalendar: NgbCalendar,
     private dateAdapter: NgbDateAdapter<string>) {
     this.sanidadForm = this.fb.group({
-      id: ['', Validators.required],
+      ID: ['', Validators.required],
       fechaAplicacion: ['', Validators.required],
       vacuna: ['', Validators.required],
       antiparasitario: ['', Validators.required],
       proxima: ['', Validators.required],
+      recordatorio: [0, Validators.required],
       comentarios: ['', Validators.required],
     },
     )
 
 
-    this.dataSvc.getPaciente$().subscribe(paciente => {
-      this.id = paciente.ID
+    this.dataSvc.getPaciente$().subscribe(e => {
+      this.paciente = e;
     })
 
   }
 
   ngOnInit(): void {
-    this.dataSvc.getPlan(this.id).subscribe(plan => {
-      this.sanidad = plan;
+    this.dataSvc.getPlan(this.paciente.ID).subscribe(plan => {
+      if (plan.status != 300) {
+        this.sanidad = plan;
+      }
     });
 
+    
     this.dataSvc.getVacunas().subscribe(vacunas => {
       this.vacunas = vacunas;
     })
 
+    
     this.dataSvc.getAntiparasitarios().subscribe(atp => {
       this.antiparasitarios = atp;
     })
 
     this.sanidadForm.patchValue({
-      id:'',
+      ID:'',
       fechaAplicacion: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
       vacuna: '',
       antiparasitario: '',
@@ -139,11 +145,12 @@ export class ListarSanidadComponent implements OnInit {
     });
 
     this.sanidadForm.setValue({
-      id:'',
+      ID:'',
       fechaAplicacion: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
       vacuna: '',
       antiparasitario: '',
       proxima: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
+      recordatorio:0,
       comentarios: ''
     })
 
@@ -167,25 +174,28 @@ export class ListarSanidadComponent implements OnInit {
     var fecha = new Date(this.model1?.month + '/' + this.model1?.day + '/' + this.model1?.year);
     var fechaProxima = new Date(this.model2?.month + '/' + this.model2?.day + '/' + this.model2?.year);
 
-    if (this.sanidadForm.get('id')?.value == null ){
+    if (this.sanidadForm.get('ID')?.value == null ){
       this.sanidadForm.patchValue({
-        id:''
+        ID:''
       })
     }
 
+
     const SANIDAD: SanidadI = {
-      // _id: this.sanidadForm.get('id')?.value,
-      idPaciente: this.id,
-      fecha: fecha,
-      vacuna: this.sanidadForm.get('vacuna')?.value,
-      antiparasitario: this.sanidadForm.get('antiparasitario')?.value,
-      fechaProxima: fechaProxima,
+      ID: this.sanidadForm.get('ID')?.value,
+      idPaciente: this.paciente.ID,
+      fecha: fecha.getTime(),
+      idVacuna: this.sanidadForm.get('vacuna')?.value,
+      idAntiparasitario: this.sanidadForm.get('antiparasitario')?.value,
+      fechaProxima: fechaProxima.getTime(),
+      recordatorio : 0,
       comentarios: this.sanidadForm.get('comentarios')?.value
     }
 
-    if (this.sanidadForm.get('id')?.value != '' ) { 
-      this.dataSvc.actualizarPlan(this.sanidadForm.get('id')?.value , SANIDAD).subscribe ( a => {
-        this.dataSvc.getPlan(this.id).subscribe(sanidad => {
+
+     if (this.sanidadForm.get('ID')?.value != '' ) { 
+      this.dataSvc.actualizarPlan(this.sanidadForm.get('ID')?.value , SANIDAD).subscribe ( a => {
+        this.dataSvc.getPlan(this.paciente.ID).subscribe(sanidad => {
           this.sanidad = sanidad;
         })
         this.showSuccess();
@@ -194,12 +204,12 @@ export class ListarSanidadComponent implements OnInit {
     } else  {
       this.dataSvc.guardarPlan(SANIDAD).subscribe(plan => {
 
-      this.dataSvc.getPlan(this.id).subscribe(sanidad => {
+      this.dataSvc.getPlan(this.paciente.ID).subscribe(sanidad => {
         this.sanidad = sanidad;
       })
       this.showSuccess();
     })
-    }
+    } 
     
     this.sanidadForm.reset();
   }
@@ -208,8 +218,8 @@ export class ListarSanidadComponent implements OnInit {
     this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar el registro definitivamente  ?',"Aceptar","Cancelar", "lg")
     .then((confirmed) => {
       if (confirmed) {
-        this.dataSvc.eliminarPlan(plan._id).subscribe( data => {
-          this.dataSvc.getPlan(this.id).subscribe(sanidad => {
+        this.dataSvc.eliminarPlan(plan.ID).subscribe( data => {
+          this.dataSvc.getPlan(this.paciente.ID).subscribe(sanidad => {
             this.sanidad = sanidad;
           })
           this.showError();
@@ -221,11 +231,11 @@ export class ListarSanidadComponent implements OnInit {
 }
 
   openEdit(content: any, plan: any) {
-    if (this.id != '') {
+    if (plan.ID != '') {
       this.titulo = "Editar Registro"
 
 
-      this.dataSvc.getPlan(this.id).subscribe(plan => {
+      this.dataSvc.getPlan(this.paciente.ID).subscribe(plan => {
         this.sanidad = plan;
       })
 
@@ -247,14 +257,14 @@ export class ListarSanidadComponent implements OnInit {
 
       var ngbDateStructProx = { day: parseInt(dayProx), month: parseInt(monthProx), year: parseInt(yearProx) };
 
-      console.log('EDIT SANIDAD ', plan)
-
+           
       this.sanidadForm.setValue({
-        id: plan._id,
+        ID: plan.ID,
         fechaAplicacion: this.dateAdapter.toModel(ngbDateStruct)!,
-        vacuna: plan.vacuna,
-        antiparasitario: plan.antiparasitario,
+        vacuna: plan.idVacuna,
+        antiparasitario: plan.idAntiparasitario,
         proxima: this.dateAdapter.toModel(ngbDateStructProx)!,
+        recordatorio:0,
         comentarios: plan.comentarios
       })
     }
@@ -270,11 +280,12 @@ export class ListarSanidadComponent implements OnInit {
     this.titulo = "Nuevo Registro";
 
     this.sanidadForm.setValue({
-      id:'',
+      ID:'',
       fechaAplicacion: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
       vacuna: '',
       antiparasitario:'',
       proxima: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
+      recordatorio:0,
       comentarios: ''
     })
 

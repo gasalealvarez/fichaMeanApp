@@ -45,11 +45,6 @@ export class DataService {
   ]
 
  
-
-  
-
-
-
   private items : itemI []=[
     {
       id:'1',
@@ -153,12 +148,12 @@ export class DataService {
   // Antiparasitarios
 
   getAntiparasitarios(): Observable <any> {
-    return this.http.get(this.urlAntiparasitario);
+     return this.http.get(this.urlAntiparasitario);
   }
 
 
   guardarAntiparasitario(antiparasitario: antiparasitarioI): Observable<any> {
-    return this.http.post(this.urlAntiparasitario, antiparasitario);
+     return this.http.post(this.urlAntiparasitario, antiparasitario);
   }
 
   eliminarAntiparasitario(id: string | undefined) {
@@ -190,9 +185,17 @@ export class DataService {
 
   // Caso
 
-  guardarCaso(archivos: File, sintomas: string){
+  getCaso(idEntrada : Number | undefined  ):Observable<any>{
+    console.log(this.urlCaso + idEntrada);
+    return this.http.get(this.urlCaso + idEntrada);
+  }
 
-    let formData = new FormData();
+  guardarCaso(caso : casoI){
+
+    return this.http.post(this.urlCaso, caso);
+
+  // guardarCaso(archivos: File, sintomas: string){
+/*     let formData = new FormData();
 
      
     formData.append('textData', sintomas);
@@ -203,7 +206,9 @@ export class DataService {
 
     return this.http.post(this.urlCaso, formData, {
       headers:headers
-    });
+    }); */
+
+
   }
   // Razas 
 
@@ -228,7 +233,7 @@ export class DataService {
   }
 
 
-  getPlan(id: string | undefined): Observable<any> {
+  getPlan(id: Number | undefined): Observable<any> {
     return this.http.get(this.urlPlan + id);
   }
 
@@ -236,7 +241,8 @@ export class DataService {
     return this.http.post(this.urlPlan , sanidad)
   }
 
-  actualizarPlan(id : string | undefined, sanidad: SanidadI): Observable<any> {
+  actualizarPlan(id : number | undefined, sanidad: SanidadI): Observable<any> {
+    console.log('Plan ', sanidad)
     return this.http.put(this.urlPlan +id, sanidad);
   }
 

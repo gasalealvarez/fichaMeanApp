@@ -5,6 +5,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/services/data.service';
 import { casoI } from 'src/app/models/model.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-modal-caso',
@@ -13,45 +16,75 @@ import { casoI } from 'src/app/models/model.interface';
 })
 export class ModalCasoComponent implements OnInit {
   public selectedFiles: FileItemI[] = [];
+  casoForm: FormGroup;
+  ID: Number = 0;
+  public caso: casoI = {};
 
-
+  sintomas: string = '';
+  archivos: File | undefined;
 
   // latest snapshot
 
   public webcamImage: WebcamImage | undefined;
 
 
-  sintomas: string = '';
-  archivos: File | undefined;
-
 
   constructor(private dataSvc: DataService,
-    private _sanitizer: DomSanitizer ) 
-    {
+    private route: ActivatedRoute,
+    private router: Router,
+    private _sanitizer: DomSanitizer,
+    private fb: FormBuilder) {
+    this.casoForm = this.fb.group({
+      ID: ['', Validators.required],
+      sintomas: ['', Validators.required],
+      diagnostico: ['', Validators.required],
+      tratamiento: ['', Validators.required]
+    })
 
-
-    }
+  }
 
   ngOnInit(): void {
+    this.ID = Number(this.route.snapshot.paramMap.get('id'));
+    this.dataSvc.getCaso(this.ID).subscribe(e => {
+      if (e.status != 300) {  
+
+        this.caso = e.data[0];
+
+        this.casoForm.patchValue({
+          ID : this.caso.ID,
+          sintomas: this.caso.sintomas,
+          diagnostico: this.caso.diagnostico,
+          tratamiento: this.caso.tratamiento
+        })
+
+      }
+    })
+
 
   }
 
   guardar() {
-    if (this.sintomas && this.archivos) {
 
-
-      this.dataSvc.guardarCaso(this.archivos, this.sintomas).subscribe(res => {
-        console.log("datos enviados")
-      });
+    const CASO: casoI = {
+      ID: this.ID,
+      sintomas: this.casoForm.get('sintomas')?.value,
+      diagnostico: this.casoForm.get('diagnostico')?.value,
+      tratamiento: this.casoForm.get('tratamiento')?.value,
     }
+
+    if (this.casoForm.get('ID')?.value == null) {
+      this.dataSvc.guardarCaso(CASO).subscribe(res => {
+        this.router.navigate(['/listar-historial']);
+      });
+    } else {
+      console.log('Editando')
+    }
+
+   
+
   }
 
-  handleImage(webcamImage: WebcamImage) {
-    this.webcamImage = webcamImage;
 
-    console.log('imagen ', webcamImage.imageAsBase64)
-
-  }
 
   onUpload() {
     // this.fileSvc.uploadImage(this.selectedFiles);   
@@ -61,7 +94,7 @@ export class ModalCasoComponent implements OnInit {
 
 
   onFileDropped(event: any) {
-    const file:File = event.target.files[0];
+    const file: File = event.target.files[0];
 
     if (file) {
       this.archivos = file;

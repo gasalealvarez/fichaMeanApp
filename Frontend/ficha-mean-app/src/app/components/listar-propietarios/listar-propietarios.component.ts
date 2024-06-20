@@ -49,7 +49,7 @@ export class ListarPropietariosComponent implements OnInit {
     public toastService: ToastService,
     private fb: FormBuilder) {
       this.propietarioForm = this.fb.group({
-        id:'',
+        ID:'',
         propietario : ['', Validators.required],
         direccion : ['', Validators.required],
         telefono : ['', Validators.required],
@@ -94,7 +94,7 @@ export class ListarPropietariosComponent implements OnInit {
 
   
     if (this.propietarioForm.get('id')?.value != '') {
-      this.dataSvc.editarPropietario(this.propietarioForm.get('id')?.value, PROPIETARIO).subscribe(data => {
+      this.dataSvc.editarPropietario(this.propietarioForm.get('ID')?.value, PROPIETARIO).subscribe(data => {
         this.showSuccess();
         this.obenerPropietarios();
       })
@@ -120,7 +120,7 @@ export class ListarPropietariosComponent implements OnInit {
     this.titulo ="Editar Propietario"
    
     this.propietarioForm.patchValue({
-     id : user._id, 
+     ID : user.ID, 
      propietario: user.nombre,
      direccion: user.direccion,
      telefono: user.telefono,
@@ -137,7 +137,7 @@ export class ListarPropietariosComponent implements OnInit {
     this.titulo = "Nuevo Propietario"
 
     this.propietarioForm.patchValue({
-      id: '',
+      ID: '',
       propietario: '',
       direccion: '',
       telefono: '',

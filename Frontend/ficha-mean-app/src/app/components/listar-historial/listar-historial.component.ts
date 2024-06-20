@@ -76,6 +76,7 @@ export class ListarHistorialComponent implements OnInit {
   private sanidad: boolean = false;
   entradaForm: FormGroup;
   model1: NgbDateStruct | undefined;
+  selectedOption: string | undefined;
 
   constructor(private dataSvc: DataService,
     private confirmationDialogService: ConfirmDialogService,
@@ -86,11 +87,17 @@ export class ListarHistorialComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder) {
     this.entradaForm = this.fb.group({
-      id: ['', Validators.required],
+      ID: ['', Validators.required],
+      nombre: ['', Validators.required],
       fecha: ['', Validators.required],
       comentarios: ['', Validators.required],
       tipo_ingreso: ['', Validators.required]
     })
+  }
+
+
+  selectOption(option: string) {
+    this.selectedOption = option;
   }
 
   ngOnInit(): void {
@@ -103,19 +110,24 @@ export class ListarHistorialComponent implements OnInit {
       this.paciente = e;
     })
 
-    this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
-      this.ingresos = data;
+
+
+    this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(e => {
+      this.ingresos = e.data;
+
     });
 
+    
     this.entradaForm.patchValue({
-      id: '',
+      ID: '',
+      nombre: this.paciente.nombre,
       fecha: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
     })
 
   }
 
-  abrir_entrada() {
-    this.router.navigate(['/nuevo-caso']);
+  abrir_entrada(entrada: EntradaI) {
+    this.router.navigate([`/nuevo-caso/${entrada.ID}`]);
   }
 
   onGrabarEntrada() {
@@ -125,9 +137,9 @@ export class ListarHistorialComponent implements OnInit {
 
     var fecha = new Date(this.model1?.month + '/' + this.model1?.day + '/' + this.model1?.year);
 
-    if (this.entradaForm.get('id')?.value == null) {
+    if (this.entradaForm.get('ID')?.value == null) {
       this.entradaForm.patchValue({
-        id: ''
+        ID: ''
       })
     }
 
@@ -135,24 +147,26 @@ export class ListarHistorialComponent implements OnInit {
       idPaciente: this.paciente.ID,
       paciente: this.paciente.nombre,
       propietario: this.propietario.nombre,
-      fecha: fecha,
+      fecha: fecha.getTime(),
       comentarios: this.entradaForm.get('comentarios')!.value,
       tipo_ingreso: this.entradaForm.get('tipo_ingreso')!.value
     }
 
 
-    if (this.entradaForm.get('id')?.value != '') {
-      this.dataSvc.actualizarEntrada(this.entradaForm.get('id')?.value, ENTRADA).subscribe(data => {
+    if (this.entradaForm.get('ID')?.value != '') {
+       this.dataSvc.actualizarEntrada(this.entradaForm.get('ID')?.value, ENTRADA).subscribe(data => {
         this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
-          this.ingresos = data;
-        });
+          this.ingresos = data.data;
+        }); 
       })
+      
     } else {
-      this.dataSvc.guardarEntrada(ENTRADA).subscribe(data => {
+       this.dataSvc.guardarEntrada(ENTRADA).subscribe(data => {
         this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
-          this.ingresos = data;
+          this.ingresos = data.data;
         });
-      })
+      }) 
+      
     }
 
     this.entradaForm.reset();
@@ -161,10 +175,10 @@ export class ListarHistorialComponent implements OnInit {
 
   eliminarEntrada(entrada: EntradaI) {
 
-    this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar el ingreso definitivamente  del ' + moment(entrada.fecha).format('DD/MM/YYYY') + ' ?', "Aceptar", "Cancelar", "lg")
+    this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar el ingreso definitivamente  del ' + entrada.fecha + ' ?', "Aceptar", "Cancelar", "lg")
       .then((confirmed) => {
         if (confirmed) {
-          this.dataSvc.eliminarEntrada(entrada._id).subscribe(data => {
+          this.dataSvc.eliminarEntrada(entrada.ID).subscribe(data => {
             this.dataSvc.getPaciente$().subscribe(e => {
               this.paciente = e;
 
@@ -187,12 +201,17 @@ export class ListarHistorialComponent implements OnInit {
       backdrop: 'static'
     });
 
+    console.log('Paciente ', this.paciente.nombre)
     this.entradaForm.patchValue({
-      id: '',
+      ID: '',
+      nombre: this.paciente.nombre,
       fecha: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
-      tipo_ingreso: '',
+      tipo_ingreso: 'sanidad',
+      recordatorio: '0',
       comentarios: ''
     })
+
+
 
   }
 
@@ -211,10 +230,13 @@ export class ListarHistorialComponent implements OnInit {
 
     var ngbDateStruct = { day: parseInt(day), month: parseInt(month), year: parseInt(year) };
 
+
     this.entradaForm.patchValue({
-      id: entry._id,
+      ID: entry.ID,
+      nombre: this.paciente.nombre,
       fecha: this.dateAdapter.toModel(ngbDateStruct)!,
       tipo_ingreso: entry.tipo_ingreso,
+      recordatorio: '0',
       comentarios: entry.comentarios
     })
   }

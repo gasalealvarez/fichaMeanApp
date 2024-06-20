@@ -39,3 +39,35 @@
     margin: 0.5em;
   }
 
+  .shadow-box {
+    background-color: #f0f0f0;
+    box-shadow: 10px 10px 5px #888888;
+  }
+
+
+  .alert-primary-gradient {
+    background: linear-gradient(to right, #007bff, #6cb2eb);
+    color: white; /* Para asegurarte de que el texto sea legible */
+    padding: 10px;
+    text-align: center;
+  }
+
+  .custom-button {
+    background-color: #4285f4; /* Gmail blue */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 4px;
+  }
+  
+  .custom-button:hover {
+    background-color: #357ae8; /* Slightly darker blue */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  }
