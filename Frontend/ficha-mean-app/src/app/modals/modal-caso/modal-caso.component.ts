@@ -77,10 +77,10 @@ export class ModalCasoComponent implements OnInit {
         this.router.navigate(['/listar-historial']);
       });
     } else {
-      console.log('Editando')
+      this.dataSvc.actualizarCaso(this.ID, CASO).subscribe(res => {
+        this.router.navigate(['/listar-historial']);
+      })
     }
-
-   
 
   }
 

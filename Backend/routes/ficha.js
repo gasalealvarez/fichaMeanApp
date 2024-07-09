@@ -82,7 +82,7 @@ const storage = multer.diskStorage({
 // rutas para Caso
 
 router.post('/caso', upload.single('file'), casoController.crearCaso);
-router.get('/caso/:id', casoController.obtenerCaso);
+router.get('/caso/:id', '/upload', upload.single('file'), casoController.obtenerCaso);
 
 
 

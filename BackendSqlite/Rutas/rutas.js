@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+
 
 const propietarioControlador = require('../Controladores/propietarioControlador');
 
@@ -18,12 +21,12 @@ router.put('/paciente/:id', pacienteControlador.actualizarPaciente);
 
 const ingresoControlador = require('../Controladores/ingresoControlador');
 router.get('/ingreso', ingresoControlador.obtenerIngresos);
-router.get('/ingreso/:id' , ingresoControlador.obtenerIngresosPorPaciente);
+router.get('/ingreso/:id', ingresoControlador.obtenerIngresosPorPaciente);
 router.post('/ingreso', ingresoControlador.crearIngreso);
 router.put('/ingreso/:id', ingresoControlador.actualizarIngreso);
 router.delete('/ingresos/:id', ingresoControlador.eliminarIngreso);
 
-const razaControlador =  require('../Controladores/razaControlador');
+const razaControlador = require('../Controladores/razaControlador');
 router.get('/raza', razaControlador.obtenerRazas);
 router.get('/raza/:id', razaControlador.obtenerRazasEspecie);
 router.post('/raza', razaControlador.crearRaza);
@@ -42,7 +45,7 @@ router.post('/vacuna', vacunaControlador.crearVacuna);
 router.put('/vacuna/:id', vacunaControlador.editarVacuna);
 router.delete('/vacuna/:id', vacunaControlador.eliminarVacuna);
 
-const planControlador  = require('../Controladores/planControlador');
+const planControlador = require('../Controladores/planControlador');
 router.get('/plan/:id', planControlador.obtenerPlan);
 router.post('/plan', planControlador.crearPlan);
 router.put('/plan/:id', planControlador.editarPlan);
@@ -53,5 +56,25 @@ router.get('/caso/:id', casoControlador.obtenerCaso);
 router.post('/caso', casoControlador.crearCaso);
 router.put('/caso/:id', casoControlador.actualizarCaso);
 router.delete('/caso/:id', casoControlador.eliminarCaso);
+
+
+
+// Configuración de Multer para manejar la carga de archivos
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/') // Directorio donde se guardarán los archivos subidos
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname) // Nombre original del archivo
+    }
+});
+
+const upload = multer({ storage: storage });
+
+const archivoControlador = require('../Controladores/archivosControlador');
+router.post('/archivo', upload.single('file'), archivoControlador.crearArchivo);
+router.get('/archivo/:id', archivoControlador.obtenerArchivos);
+
+
 
 module.exports = router;

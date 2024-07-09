@@ -117,7 +117,7 @@ export class ListarHistorialComponent implements OnInit {
 
     });
 
-    
+
     this.entradaForm.patchValue({
       ID: '',
       nombre: this.paciente.nombre,
@@ -154,19 +154,19 @@ export class ListarHistorialComponent implements OnInit {
 
 
     if (this.entradaForm.get('ID')?.value != '') {
-       this.dataSvc.actualizarEntrada(this.entradaForm.get('ID')?.value, ENTRADA).subscribe(data => {
-        this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
-          this.ingresos = data.data;
-        }); 
-      })
-      
-    } else {
-       this.dataSvc.guardarEntrada(ENTRADA).subscribe(data => {
+      this.dataSvc.actualizarEntrada(this.entradaForm.get('ID')?.value, ENTRADA).subscribe(data => {
         this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
           this.ingresos = data.data;
         });
-      }) 
-      
+      })
+
+    } else {
+      this.dataSvc.guardarEntrada(ENTRADA).subscribe(data => {
+        this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
+          this.ingresos = data.data;
+        });
+      })
+
     }
 
     this.entradaForm.reset();
@@ -210,9 +210,6 @@ export class ListarHistorialComponent implements OnInit {
       recordatorio: '0',
       comentarios: ''
     })
-
-
-
   }
 
   openEdit(targetModal: any, entry: any) {

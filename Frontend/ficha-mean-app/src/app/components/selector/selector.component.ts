@@ -130,6 +130,7 @@ export class SelectorComponent implements OnInit {
     this.dataSvc.getPropietarios().subscribe( data => {
       this.propietarios = data;
     })
+    
   }
 
   onSelect() {

@@ -1,10 +1,19 @@
 
+
   <div class="jumbotron "> 
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Bienvenidos</h1>
+      </div>
+    </div>
+    
     <div class="container  ">
-      <div >
-        <h1 class="font-weight-light text-center text-lg-left ">Reseña</h1>
-        <hr>
-      </div> 
+    <!--   <div >
+        <h1 class=" text-center text-lg-left resena">Centro Vet Pequeños</h1>
+      </div>  -->
+  
+
 
       <div class="row h-100 py-3 align-items-center justify-content-center margin:5px">
           <div class="col-lg-6 mb-4 flex align-items-center">
@@ -82,8 +91,8 @@
   <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{ titulo }}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+       
       </button>
     </div>
         <div class="modal-body">

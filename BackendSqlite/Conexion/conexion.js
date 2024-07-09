@@ -11,6 +11,7 @@ const db = new sqlite.Database("./ficha.sqlite", sqlite.OPEN_READWRITE, (err)=> 
     db.run("CREATE TABLE  IF NOT EXISTS  vacunas (ID INTEGER PRIMARY KEY, vacuna )");
     db.run("CREATE TABLE  IF NOT EXISTS  planes (ID INTEGER PRIMARY KEY, idPaciente INTEGER, idVacuna INTEGER, idAntiparasitario INTEGER,  fecha, fechaProxima, recordatorio INTEGER, comentarios) ");
     db.run("CREATE TABLE  IF NOT EXISTS  casos (ID INTEGER PRIMARY KEY, idIngreso INTEGER, sintomas, diagnostico, tratamiento)");
+    db.run("CREATE TABLE  IF NOT EXISTS  archivos (ID INTEGER PRIMARY KEY, idPaciente INTEGER, fecha INTEGER, comentarios, ruta)");
 });
 
 module.exports = db;

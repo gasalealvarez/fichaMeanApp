@@ -1,5 +1,5 @@
 
-<div class="container-mt-5">
+<div class="container mt-5">
     <div class="row">
         <div class="col-lg-8-offset-lg-2">
             <div class="card shadow-box">
@@ -89,7 +89,6 @@
       <div class="col-md-6">
         <label >Vacunas:</label>
         <select class="form-select" formControlName="vacuna">
-            <option  selected [ngValue]="0">Ninguna...</option>
             <option *ngFor="let vacuna of vacunas" [ngValue]="vacuna.ID">{{vacuna.vacuna}}</option>
         </select>
       </div>
@@ -97,7 +96,6 @@
       <div class="col-md-6">
         <label >Antiparasitarios:</label>
         <select class="form-select" formControlName="antiparasitario">
-          <option  [ngValue]="0">Ninguna...</option>
           <option *ngFor="let antiparasitario of antiparasitarios" [ngValue]="antiparasitario.ID">{{antiparasitario.antiparasitario}}</option>
         </select>
       </div>

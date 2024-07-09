@@ -1,37 +1,33 @@
-.card {
+body {
+  background: #f8f9fa;
+  font-family: 'Roboto', sans-serif;
+}
+.form-container {
+  background: #ffffff;
+  padding: 30px;
   border-radius: 10px;
+  box-shadow: 10px 10px 5px #888888;
+  margin-top: 50px;
+}
+.form-title {
+  font-size: 1.9rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.form-group textarea {
+  resize: none;
+  margin: 5px 0px 10px;
+}
+.btn-custom {
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 8px;
 }
 
-.card-header {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+
+.shadow-box {
+  background-color: #f0f0f0;
+  box-shadow: 10px 10px 5px #888888;
 }
 
-.card-body {
-  padding: 2rem;
-}
-
-.form-control:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-  background-color: #545b62;
-  border-color: #4e555b;
-}

@@ -1,45 +1,43 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card shadow-lg border-0 rounded">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Caso Clinico Nº</h5>
+    <div class="col-lg-6">
+      <div class="form-container">
+        <div class="form-title text-center">
+          Caso Clinico
         </div>
-        <div class="card-body">
-          <form class="row g-3"  [formGroup]="casoForm" (ngSubmit)="guardar()">
+
+          <form  [formGroup]="casoForm" (ngSubmit)="guardar()">
             <input type="hidden" class="form-control" formControlName="ID">
-            <div class="col-12">
-              <div class="form-group mt-2">
+            
+              <div class="form-group">
                 <label for="sintomas">Sintomas:</label>
                 <textarea class="form-control" formControlName="sintomas" rows="3"></textarea>
               </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group mt-2">
+            
+            
+              <div class="form-group">
                 <label for="diagnostico">Diagnostico:</label>
                 <textarea class="form-control"  formControlName="diagnostico" id="diagnostico" rows="3"></textarea>
               </div>
-            </div>
-            <div class="col-12">
-              <div class="form-group mt-2">
+            
+              <div class="form-group">
                 <label for="tratamiento">Tratamiento:</label>
                 <textarea class="form-control" formControlName="tratamiento" id="tratamiento" rows="3"></textarea>
               </div>
-            </div>
-            <hr class="my-4">
+            
+           <!--  <hr class="my-4">
             <div class="col-12">
               <div class="form-group">
                 <label for="archivo" class="form-label">Seleccionar Archivo</label>
                 <input type="file" class="form-control" id="archivo" name="archivo" accept=".pdf, .doc, .docx" (change)="onFileDropped($event)">
               </div>
             </div>
-            <hr class="my-4">
-            <div class="col-12 d-flex justify-content-between">
-              <button routerLink="/listar-historial" class="btn btn-secondary">Volver</button>
-              <button type="submit" class="btn btn-primary">Aceptar</button>
+            <hr class="my-4"> -->
+            <div class="form-group d-flex justify-content-end">
+              <button routerLink="/listar-historial" class="btn btn-secondary btn-custom">Volver</button>
+              <button type="submit" class="btn btn-primary btn-custom">Aceptar</button>
             </div>
           </form>
-        </div>
       </div>
     </div>
   </div>

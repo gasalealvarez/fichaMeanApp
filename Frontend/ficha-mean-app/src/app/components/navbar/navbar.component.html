@@ -13,7 +13,7 @@
                     <a  class="nav-link" [routerLink]="['agregar-items']">Agregar Items
                     </a>
                 </li>
-                <li class="nav-item active" >
+                <li *ngIf="paciente.ID != null" class="nav-item active" >
                     <a  class="nav-link" [routerLink]="['archivos']">Archivos
                     </a>
                 </li>

@@ -112,15 +112,10 @@ export class ListarSanidadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSvc.getPlan(this.paciente.ID).subscribe(plan => {
-      if (plan.status != 300) {
-        this.sanidad = plan;
-      }
-    });
 
-    
     this.dataSvc.getVacunas().subscribe(vacunas => {
       this.vacunas = vacunas;
+      console.log()
     })
 
     
@@ -128,21 +123,30 @@ export class ListarSanidadComponent implements OnInit {
       this.antiparasitarios = atp;
     })
 
+    this.dataSvc.getPlan(this.paciente.ID).subscribe(plan => {
+      if (plan.status != 300) {
+        this.sanidad = plan;
+      }
+
+/* 
     this.sanidadForm.patchValue({
       ID:'',
       fechaAplicacion: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
-      vacuna: '',
-      antiparasitario: '',
+      vacuna: '-',
+      antiparasitario: '-',
       proxima: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
-      comentarios: ''
+      comentarios: 'funciona'
+    }); */
     });
+
   }
 
-  openModal(targetModal: any) {
+/*   openModal(targetModal: any) {
     this.modalService.open(targetModal, {
       centered: true,
       backdrop: 'static'
     });
+
 
     this.sanidadForm.setValue({
       ID:'',
@@ -150,11 +154,11 @@ export class ListarSanidadComponent implements OnInit {
       vacuna: '',
       antiparasitario: '',
       proxima: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
-      recordatorio:0,
+      recoradatorio:0, 
       comentarios: ''
     })
 
-  }
+  } */
 
   agregar21() {
     let date: Date = new Date();
@@ -282,8 +286,8 @@ export class ListarSanidadComponent implements OnInit {
     this.sanidadForm.setValue({
       ID:'',
       fechaAplicacion: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
-      vacuna: '',
-      antiparasitario:'',
+      vacuna: this.vacunas[0].ID,
+      antiparasitario:this.antiparasitarios[0].ID,
       proxima: this.dateAdapter.toModel(this.ngbCalendar.getToday())!,
       recordatorio:0,
       comentarios: ''

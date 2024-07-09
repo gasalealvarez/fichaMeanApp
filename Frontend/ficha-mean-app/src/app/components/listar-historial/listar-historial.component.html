@@ -1,4 +1,4 @@
-<div class="container-mt-5">
+<div class="container mt-5">
   <div class="row">
     <div class="col-lg-8-offset-lg-2">
       <div class="card  shadow-box">
@@ -27,7 +27,7 @@
                           <td>{{ingreso.paciente}}</td> -->
                   <td>{{ ingreso.fecha ? (ingreso.fecha | formatDate) : '' }}</td>
 
-                  <td *ngIf="ingreso.tipo_ingreso === 'sanidad'; else otras">
+                  <td *ngIf="ingreso.tipo_ingreso === 'sanidad' || ingreso.tipo_ingreso === 'cirugia'; else otras">
                     {{ingreso.comentarios}}
                   </td>
 
@@ -58,9 +58,9 @@
 <ng-template #IngresoModal let-modal>
   <div class="modal-header">
     <h5 class="modal-title">Ingresos</h5>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    <button type="button" class="btn-close" aria-label="Close button" aria-describedby="modal-title"
       (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+     
     </button>
 
   </div>
@@ -70,11 +70,11 @@
 
     <form class="row g-3 mt-3" [formGroup]="entradaForm" (ngSubmit)="onGrabarEntrada()">
 
-      <div class="alert alert-primary alert-primary-gradient" role="alert">
+     <!--  <div class="alert alert-primary alert-primary-gradient" role="alert">
         <h4>{{paciente.nombre}}</h4>
-      </div>
+      </div> -->
 
-      <input type="text" formControlName="ID" name="ID">
+      <input type="hidden" formControlName="ID" name="ID">
 
       <div class="col-md-6">
         <div class="form-group">
@@ -136,9 +136,9 @@
       </div>
 
 
-      <div class="form-group">
-        <button type="button" (click)="modal.close()" class="btn btn-secondary  float-start">Volver</button>
-        <button type="submit" class="btn btn-primary  float-end">Aceptar</button>
+      <div class="form-group d-flex justify-content-end ">
+        <button type="button" (click)="modal.close()" class="btn btn-secondary">Volver</button>
+        <button type="submit" class="btn btn-primary ">Aceptar</button>
       </div>
     </form>
   </div>

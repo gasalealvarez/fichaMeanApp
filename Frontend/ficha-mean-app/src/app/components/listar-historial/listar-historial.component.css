@@ -12,14 +12,7 @@
     margin: 13px;
   } */
 
-  .close {
-    font-size: 20px;
-    line-height: 50px;
-    border: none;
-    outline:none;
-    opacity: 0.2;
-    /* filter:alpha(opacity=40); For IE8 and earlier */
-  }
+
 
   button.calendar, button.calendar:active {
     width: 2.75rem;
@@ -70,4 +63,8 @@
   .custom-button:hover {
     background-color: #357ae8; /* Slightly darker blue */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  }
+
+  .btn {
+    margin: 5px;
   }

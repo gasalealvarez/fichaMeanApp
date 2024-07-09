@@ -73,3 +73,10 @@ export interface casoI {
     tratamiento? : string,
     //archivos: File[]
 }
+
+export interface archivoI {
+    ID?:Number,
+    fecha?: number,
+    ruta?: string,
+    comentarios?: string,
+}
