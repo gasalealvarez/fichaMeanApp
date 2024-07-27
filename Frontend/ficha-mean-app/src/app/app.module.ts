@@ -26,13 +26,14 @@ import { ListarHistorialComponent } from './components/listar-historial/listar-h
 import { ModalItemsComponent } from './modals/modal-items/modal-items.component';
 import { ModalCasoComponent } from './modals/modal-caso/modal-caso.component';
 import { WebcamModule } from 'ngx-webcam';
-import { CamaraComponent } from './components/widgets/camara/camara.component';
 import { ToastComponent } from './components/widgets/toast/toast.component';
 import { ConfirmDialogComponent } from './components/widgets/confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogService } from './services/confirm-dialog.service';
 import { ArchivosComponent } from './components/archivos/archivos.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FormatDatePipe } from './format-date.pipe';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
+import { ListarTareasComponent } from './components/listar-tareas/listar-tareas.component';
 
 
 
@@ -49,11 +50,12 @@ import { FormatDatePipe } from './format-date.pipe';
     ListarHistorialComponent,
     ModalItemsComponent,
     ModalCasoComponent,
-    CamaraComponent,
     ToastComponent,
     ConfirmDialogComponent,
     ArchivosComponent,
-    FormatDatePipe
+    FormatDatePipe,
+    PdfViewerComponent,
+    ListarTareasComponent
   ],
   imports: [
     BrowserModule,
@@ -62,9 +64,7 @@ import { FormatDatePipe } from './format-date.pipe';
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
-    NgxFileDropModule,
     NgbModule, 
-    WebcamModule,
     HttpClientModule, 
     ToastrModule.forRoot(),
   ],

@@ -185,8 +185,7 @@ export class SelectorComponent implements OnInit {
       fechaNacimiento : fecha.getTime()
     }
 
-    
-    
+        
      if (this.pacienteForm.get('id')?.value != '') {
       this.dataSvc.editarPaciente(this.pacienteForm.get('id')?.value, PACIENTE).subscribe(data => {
         this.showSuccess();
@@ -307,7 +306,7 @@ export class SelectorComponent implements OnInit {
     var ngbDateStruct = { day: parseInt(day), month: parseInt(month), year: parseInt(year)};
 
     this.pacienteForm.patchValue({
-          id: user._id,
+          id: user.ID,
           paciente: user.nombre,
           especie: str_especie,
           idSexo: user.idSexo,
@@ -317,6 +316,7 @@ export class SelectorComponent implements OnInit {
           fechaNacimiento:  this.dateAdapter.toModel(ngbDateStruct)!,
         })
       
+
         
      this.modalService.open(content, {
       centered: true,

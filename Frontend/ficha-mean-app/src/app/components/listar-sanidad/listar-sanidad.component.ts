@@ -81,6 +81,8 @@ export class ListarSanidadComponent implements OnInit {
   titulo: string = "Nuevo Registro";
   ID: string | undefined;
 
+  isChecked:boolean = false;
+
   public sanidad: SanidadI[] = [];
   public paciente: PacienteI = {};
 
@@ -160,6 +162,7 @@ export class ListarSanidadComponent implements OnInit {
 
   } */
 
+
   agregar21() {
     let date: Date = new Date();
     date.setDate(date.getDate() + 21);
@@ -192,7 +195,7 @@ export class ListarSanidadComponent implements OnInit {
       idVacuna: this.sanidadForm.get('vacuna')?.value,
       idAntiparasitario: this.sanidadForm.get('antiparasitario')?.value,
       fechaProxima: fechaProxima.getTime(),
-      recordatorio : 0,
+      recordatorio : this.sanidadForm.get('recordatorio')?.value,
       comentarios: this.sanidadForm.get('comentarios')?.value
     }
 
@@ -268,7 +271,7 @@ export class ListarSanidadComponent implements OnInit {
         vacuna: plan.idVacuna,
         antiparasitario: plan.idAntiparasitario,
         proxima: this.dateAdapter.toModel(ngbDateStructProx)!,
-        recordatorio:0,
+        recordatorio: plan.recordatorio,
         comentarios: plan.comentarios
       })
     }

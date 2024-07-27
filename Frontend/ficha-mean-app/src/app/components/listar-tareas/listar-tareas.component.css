@@ -1,0 +1,32 @@
+.card {
+    transition: border-color 0.3s;
+  }
+  
+
+.shadow-box {
+  background-color: #f0f0f0;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+
+  /* Definir los estilos base para la card */
+  .custom-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+  }
+  
+  /* Definir los estilos de hover para la card */
+  .custom-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img-top {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px auto;
+  }
+  
+ 

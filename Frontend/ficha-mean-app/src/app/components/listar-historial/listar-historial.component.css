@@ -13,7 +13,6 @@
   } */
 
 
-
   button.calendar, button.calendar:active {
     width: 2.75rem;
     height: 100%;
@@ -67,4 +66,20 @@
 
   .btn {
     margin: 5px;
+  }
+
+  fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 0;
+    padding-top: 20px;
+    position: relative;
+  }
+  legend {
+    padding: 0 10px;
+    width: auto;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: white;
   }

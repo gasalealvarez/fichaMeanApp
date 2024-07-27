@@ -1,0 +1,7 @@
+.rounded-icon {
+    width: 40px; /* Ajusta el tamaño del ícono según tus necesidades */
+    height: 40px;
+    border-radius: 50%;
+    filter: invert(100%);
+  }
+  

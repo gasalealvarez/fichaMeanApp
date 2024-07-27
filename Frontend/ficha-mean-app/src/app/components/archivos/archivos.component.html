@@ -29,19 +29,14 @@
                   <td>{{ archivo.fecha ? (archivo.fecha | formatDate) : '' }}</td>
                   <td>
                     {{archivo.ruta}}
-                  </td>  
+                  </td>
                   <td>
                     {{archivo.comentarios}}
                   </td>
 
-
-                  
-
-                 <!--  <td style="width:20%">
-                    <a><i (click)="eliminarEntrada(ingreso)" class="fas fa-trash text-danger"></i></a>
-                    &nbsp;
-                    <a><i (click)="openEdit(IngresoModal, ingreso)" class="fas fa-edit "></i></a>
-                  </td> -->
+                  <td style="width:20%">
+                    <a><i  (click)="eliminarArchivo(archivo)" class="fas fa-trash text-danger"></i></a>
+                  </td>
                 </tr>
 
               </tbody>
@@ -90,10 +85,11 @@
 
         <div class="col-12">
           <label class="btn btn-default p-0">
-            <input type="file" class="form-control" id="archivo" name="archivo" accept=".pdf, .doc, .docx" (change)="onFileDropped($event)">
+            <input type="file" class="form-control" id="archivo" name="archivo" accept=".pdf, .doc, .docx"
+              (change)="onFileDropped($event)">
           </label>
         </div>
-       <!--  <div *ngIf="selectedFiles[0] != null " class="table-responsive mt-3">
+        <!--  <div *ngIf="selectedFiles[0] != null " class="table-responsive mt-3">
           <table class="table ">
             <thead>
               <tr>
@@ -135,7 +131,7 @@
 
       <div class="form-group d-flex justify-content-end ">
         <button type="button" (click)="modal.close()" class="btn btn-secondary">Volver</button>
-        <button type="submit"  [disabled]="!archivo" class="btn btn-primary">Aceptar</button>
+        <button type="submit" [disabled]="!archivo" class="btn btn-primary">Aceptar</button>
       </div>
     </form>
   </div>

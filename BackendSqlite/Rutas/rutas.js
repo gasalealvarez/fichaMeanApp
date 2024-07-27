@@ -24,7 +24,7 @@ router.get('/ingreso', ingresoControlador.obtenerIngresos);
 router.get('/ingreso/:id', ingresoControlador.obtenerIngresosPorPaciente);
 router.post('/ingreso', ingresoControlador.crearIngreso);
 router.put('/ingreso/:id', ingresoControlador.actualizarIngreso);
-router.delete('/ingresos/:id', ingresoControlador.eliminarIngreso);
+router.delete('/ingreso/:id', ingresoControlador.eliminarIngreso);
 
 const razaControlador = require('../Controladores/razaControlador');
 router.get('/raza', razaControlador.obtenerRazas);
@@ -47,6 +47,7 @@ router.delete('/vacuna/:id', vacunaControlador.eliminarVacuna);
 
 const planControlador = require('../Controladores/planControlador');
 router.get('/plan/:id', planControlador.obtenerPlan);
+router.get('/plan', planControlador.obtenerTareas);
 router.post('/plan', planControlador.crearPlan);
 router.put('/plan/:id', planControlador.editarPlan);
 router.delete('/plan/:id', planControlador.eliminarPlan);
@@ -74,6 +75,7 @@ const upload = multer({ storage: storage });
 const archivoControlador = require('../Controladores/archivosControlador');
 router.post('/archivo', upload.single('file'), archivoControlador.crearArchivo);
 router.get('/archivo/:id', archivoControlador.obtenerArchivos);
+router.delete('/archivo/:id', archivoControlador.eliminarArchivo);
 
 
 

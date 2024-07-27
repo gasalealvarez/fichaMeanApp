@@ -100,7 +100,7 @@
               <input type="hidden" formControlName="id" name="id">
               
               <div class="col-12">
-                <label for="recipient-name" class="col-form-label">Paciente:</label>
+                <label for="recipient-name" class="col-form-label">Paciente</label>
                 <input  formControlName="paciente" type="text" name="paciente" class="form-control" >
               </div>
               
@@ -121,7 +121,7 @@
               </div>    
 
               <div class="col-md-6">
-                <label  class="col-form-label">Raza:</label>
+                <label  class="col-form-label">Raza</label>
                 <select  formControlName="raza" name="raza" class="form-select" >
                 <option selected>[Seleccione Raza]</option>
                 <option   *ngFor="let raza of razas_especie" [ngValue]="raza.raza">{{ raza.raza }}</option>  
@@ -129,13 +129,13 @@
               </div>
 
               <div class="col-md-6">
-                  <label for="recipient-name" class="col-form-label">Pelaje:</label>
+                  <label for="recipient-name" class="col-form-label">Pelaje</label>
                   <input  formControlName="pelaje" type="text"  name="pelaje" class="form-control" >
               </div> 
               
 
               <div class="col-md-6">
-                <label  class="col-form-label">Edad:</label>
+                <label  class="col-form-label">Edad</label>
                 <div class="input-group">
                   <input formControlName="edad" type="text" class="form-control" >
                   <div class="input-group-append">

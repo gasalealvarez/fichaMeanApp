@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FileItemI } from 'src/app/models/file.interface';
+import * as moment from 'moment';
 import { archivoI, PacienteI } from 'src/app/models/model.interface';
 import { DataService } from 'src/app/services/data.service';
 
@@ -129,6 +129,20 @@ export class ArchivosComponent implements OnInit {
     })
   }
 
+  eliminarArchivo (archivo : archivoI) {
+    console.log('Elminando archivo ID ' , archivo.ID)
+    const pacienteID = this.paciente?.ID ?? 0;
+    const archivoID = archivo.ID ?? 0;
+    
+    this.dataSvc.eliminarArchivo(archivoID).subscribe(data => {
+      this.dataSvc.getArchivos(pacienteID).subscribe( e => {
+        this.archivos = e.data;
+        this.archivoForm.patchValue ({
+          //ID: this.archivos
+        })
+      })
+    })
+  }
 
   onFileDropped(event: any) {
     const file: File = event.target.files[0];

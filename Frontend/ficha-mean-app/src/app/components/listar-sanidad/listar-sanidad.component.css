@@ -41,3 +41,9 @@ button.calendar, button.calendar:active {
     background-color: #f0f0f0;
     box-shadow: 10px 10px 5px #888888;
   }
+
+  .red-background {
+    background-color: red;
+    color: white;
+  }
+

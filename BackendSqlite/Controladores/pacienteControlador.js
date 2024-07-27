@@ -62,7 +62,6 @@ exports.actualizarPaciente = async (req, res) => {
     const id = req.params.id;
     const { nombre, idPropietario, idEspecie, raza, idSexo, pelaje, fechaNacimiento} = req.body;
 
-
     const query = `UPDATE pacientes SET nombre = ?, idPropietario = ?, idEspecie = ?, raza = ?, idSexo = ?, pelaje = ?, fechaNacimiento = ? WHERE id = ?`;
     db.run(query, [nombre, idPropietario, idEspecie, raza, idSexo, pelaje, fechaNacimiento, id], function (err) {
         if (err) {

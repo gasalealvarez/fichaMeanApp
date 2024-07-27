@@ -127,6 +127,8 @@ export class DataService {
   }
 
   editarPaciente(id: string, paciente: PacienteI): Observable<any> {
+    console.log('Paciente id ', id)
+    console.log('Paciente desde DATA ', paciente)
     return this.http.put(this.urlPaciente + id, paciente)
   }
 
@@ -249,6 +251,10 @@ export class DataService {
     return this.http.get(this.urlArchivo + idPaciente);
   }
 
+  eliminarArchivo (id: number | Number) : Observable<any> {
+    return this.http.delete(this.urlArchivo + id);
+  }
+
   // Razas 
 
   getRazas(): Observable<any> {
@@ -272,8 +278,14 @@ export class DataService {
   }
 
 
+  // Plan
+
   getPlan(id: Number | undefined): Observable<any> {
     return this.http.get(this.urlPlan + id);
+  }
+
+  getTareas() :Observable<any> {
+    return this.http.get(this.urlPlan);
   }
 
   guardarPlan(sanidad: SanidadI): Observable<any> {

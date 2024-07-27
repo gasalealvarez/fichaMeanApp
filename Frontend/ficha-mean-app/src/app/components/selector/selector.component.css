@@ -97,6 +97,10 @@ button.calendar, button.calendar:active {
   box-shadow: 10px 10px 5px #888888;
 }
 
+label {
+  font-weight: 400;
+}
+
 .custom-button {
   background-color: #4285f4; /* Gmail blue */
   border: none;
@@ -117,8 +121,16 @@ button.calendar, button.calendar:active {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .resena {
       display: block;
+  }
+
+  .container {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translate(0, -43%);
   }
 }

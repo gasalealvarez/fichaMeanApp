@@ -130,7 +130,7 @@ export class ModalItemsComponent implements OnInit {
 
               this.dataSvc.guardarVacuna(VACUNA).subscribe(vacuna => {
                 this.dataSvc.getVacunas().subscribe(vacunas => {
-                  this.vacuna = vacunas.data;
+                  this.vacuna = vacunas;
                 })
                 this.showSuccess();
               });
@@ -143,7 +143,7 @@ export class ModalItemsComponent implements OnInit {
               
               this.dataSvc.guardarAntiparasitario(ATP).subscribe(antiparasitario => {
                 this.dataSvc.getAntiparasitarios().subscribe(atp => {
-                  this.antiparasitarios = atp.data
+                  this.antiparasitarios = atp
                 })
                 this.showSuccess();
               })
@@ -155,7 +155,7 @@ export class ModalItemsComponent implements OnInit {
 
               this.dataSvc.guardarRaza(RAZA).subscribe(a => {
                 this.dataSvc.getRazas().subscribe(b=> {
-                  this.razas = b.data
+                  this.razas = b
                 })
               })
               this.showSuccess();
@@ -298,7 +298,7 @@ export class ModalItemsComponent implements OnInit {
         })
       }
 
-      this.boton_estado=". . .";
+      this.boton_estado="Editar";
   }
 
   asignar_clase(item:any) {

@@ -10,10 +10,12 @@ import { ModalItemsComponent } from './modals/modal-items/modal-items.component'
 import { SelectorComponent } from './components/selector/selector.component';
 import { ModalCasoComponent } from './modals/modal-caso/modal-caso.component';
 import { ArchivosComponent } from './components/archivos/archivos.component';
+import { ListarTareasComponent } from './components/listar-tareas/listar-tareas.component';
 
 const routes: Routes = [
   { path:'',component: SelectorComponent},
   { path: 'agregar-items', component: ModalItemsComponent},
+  { path: 'listar-tareas', component: ListarTareasComponent},
   { path: 'listar-propietarios', component: ListarPropietariosComponent},
   { path: 'listar-pacientes', component: ListarPacientesComponent},
   // { path: 'listar-entradas', component: EntradaComponent },

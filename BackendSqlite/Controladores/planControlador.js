@@ -79,3 +79,31 @@ exports.eliminarPlan = async (req, res) => {
         res.json({ message: 'Registro eliminado exitosamente', changes: this.changes });
     });
 }
+
+exports.obtenerTareas = async (req, res)=> {
+
+    sql = `SELECT p.ID, p.fecha,  pac.nombre as paciente, prop.nombre as propietario, p.comentarios, p.recordatorio
+    FROM planes p 
+          JOIN pacientes pac on p.idPaciente=pac.id
+          JOIN propietarios prop on pac.IdPropietario=prop.id
+          JOIN vacunas v on p.idVacuna=v.ID
+          JOIN antiparasitarios a on p.idantiparasitario=a.ID
+		  where p.fechaProxima < CURRENT_TIMESTAMP and p.recordatorio=1;`;
+
+    try {
+        
+        db.all(sql, [], (err, rows) => {
+            if (err) return res.json({ status: 300, success: false, error: err });
+
+            if (rows.length < 1)
+                return res.json({ status: 300, success: false, error: "Row macth" });
+
+            return res.json(rows);
+        })
+    } catch (error) {
+        return res.json({
+            status: 400,
+            success: false,
+        })
+    }
+}

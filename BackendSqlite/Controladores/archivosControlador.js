@@ -61,3 +61,17 @@ exports.obtenerArchivos = async(req, res) => {
         return res.json({ status: 200, data: rows, success: true });
     })
 }
+
+
+exports.eliminarArchivo = async(req, res) => {
+    const id = req.params.id;
+
+    const query = `DELETE FROM archivos WHERE id = ?`;
+    db.run(query, id, function (err) {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({ message: 'Registro eliminado exitosamente', changes: this.changes });
+    });
+}

@@ -1,6 +1,15 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Ficha Clinica  &nbsp; &nbsp;  {{ paciente.nombre }}</a>
+        <a class="navbar-brand" href="/">Ficha Clinica &nbsp; &nbsp; {{ paciente.nombre }} &nbsp; &nbsp;
+           <ng-container *ngIf="paciente.idEspecie != null">
+                <ng-container *ngIf="paciente.idEspecie == '1'; else catIcon">
+                    <img src="assets/dog.png" alt="dog" class="rounded-icon">
+                </ng-container>
+                <ng-template #catIcon>
+                    <img src="assets/cat.png" alt="cat" class="rounded-icon">
+                </ng-template>
+            </ng-container>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,22 +18,26 @@
                 <!-- <li class="nav-item active" >
                     <a *ngIf="paciente.id != null" class="nav-link" href="/listar-propietarios" >Propietarios</a>
                 </li> -->
-                <li class="nav-item active" >
-                    <a  class="nav-link" [routerLink]="['agregar-items']">Agregar Items
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['agregar-items']">Agregar Items
                     </a>
                 </li>
-                <li *ngIf="paciente.ID != null" class="nav-item active" >
-                    <a  class="nav-link" [routerLink]="['archivos']">Archivos
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['listar-tareas']">Tareas
                     </a>
                 </li>
-                <li *ngIf="paciente.ID != null" class="nav-item active" >
-                    <a  class="nav-link"  [routerLink]="['listar-historial']">Historial</a>
+                <li *ngIf="paciente.ID != null" class="nav-item active">
+                    <a class="nav-link" [routerLink]="['archivos']">Archivos
+                    </a>
                 </li>
-                <li class="nav-item active" >
+                <li *ngIf="paciente.ID != null" class="nav-item active">
+                    <a class="nav-link" [routerLink]="['listar-historial']">Historial</a>
+                </li>
+                <li class="nav-item active">
                     <a *ngIf="paciente.ID != null" class="nav-link" [routerLink]="['listar-sanidad']">Plan Sanitario</a>
                 </li>
-              
+
             </ul>
         </div>
     </div>
-  </nav>
+</nav>

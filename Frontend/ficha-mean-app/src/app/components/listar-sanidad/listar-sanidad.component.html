@@ -20,7 +20,7 @@
                             <!-- <th scope="col">Email</th> -->
                             <th scope="col">Fecha</th>
                             <!-- <th scope="col">Email</th> -->
-                            <th scope="col">Comentarios</th>
+                            <th scope="col">Agendado</th>
                             <!-- <th scope="col">Email</th> -->
                             <th scope="col" style="width:10%"></th>
                           </tr>
@@ -30,7 +30,7 @@
                             <th>{{historia.vacuna}}</th>
                             <td>{{historia.antiparasitario}}</td>
                             <td>{{historia.fecha | date:"dd-MM-yyyy" }}</td>
-                            <td>{{historia.comentarios}}</td>
+                            <td [ngClass]="{'red-background': historia.recordatorio}">{{ historia.recordatorio ? 'Si' : 'No' }}</td>
                             <td>
                               <a (click)="eliminarPlan(historia)"><i  class="fas fa-trash text-danger" ></i></a>
                               &nbsp;
@@ -116,15 +116,16 @@
 
       <div class="col-md-6">
         <br>
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="recordatorio">
         <label class="form-check-label" for="exampleCheck1">Agregar al recordatorio</label>
       </div>
 
-      <div class="col-12 ">
-        <label >Comentarios:</label>
-        <textarea formControlName="comentarios" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <div *ngIf="sanidadForm.get('recordatorio')?.value">
+        <div class="col-12 ">
+          <label >Comentarios:</label>
+          <textarea formControlName="comentarios" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
       </div>
-
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>

@@ -175,15 +175,15 @@ export class ListarHistorialComponent implements OnInit {
 
   eliminarEntrada(entrada: EntradaI) {
 
-    this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar el ingreso definitivamente  del ' + entrada.fecha + ' ?', "Aceptar", "Cancelar", "lg")
+    this.confirmationDialogService.confirm('Por favor Confirmar..', 'Desea borrar el ingreso definitivamente  de ' + entrada.paciente + ' ?', "Aceptar", "Cancelar", "lg")
       .then((confirmed) => {
         if (confirmed) {
           this.dataSvc.eliminarEntrada(entrada.ID).subscribe(data => {
             this.dataSvc.getPaciente$().subscribe(e => {
-              this.paciente = e;
-
+              
+              console.log('ID Paciente ' + this.paciente.ID)
               this.dataSvc.getEntradasPorPaciente(this.paciente.ID).subscribe(data => {
-                this.ingresos = data;
+                this.ingresos = data.data;
               });
 
             })
